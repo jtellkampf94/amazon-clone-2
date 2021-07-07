@@ -1,0 +1,25 @@
+{
+  "name": "amazon-clone-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon --exec ts-node server/index.ts",
+    "dev": "SET NODE_ENV=deveploment & npm run server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.2"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.12",
+    "@types/mongoose": "^5.11.97",
+    "nodemon": "^2.0.9",
+    "ts-node": "^10.0.0"
+  }
+}

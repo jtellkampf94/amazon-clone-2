@@ -15,7 +15,7 @@ const productSchema = new mongoose.Schema(
       default: 0.0
     },
     description: {
-      type: Number,
+      type: String,
       required: [true, "Please enter the product description"],
       maxLength: [2000, "Product description cannot exceed 2000 characters"]
     },
@@ -42,7 +42,7 @@ const productSchema = new mongoose.Schema(
         values: [
           "Electronics",
           "Cameras",
-          "Laptop",
+          "Laptops",
           "Accessories",
           "Headphones",
           "Food",

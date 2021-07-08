@@ -34,7 +34,6 @@ export const getSingleProduct = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {
     const product = await Product.findById(req.params.id);
 
-    console.log("GSP");
     if (!product) {
       return next(new ErrorHandler("Product not found", 404));
     }
@@ -52,10 +51,7 @@ export const updateProduct = catchAsyncErrorsMiddleware(
     let product = await Product.findById(req.params.id);
 
     if (!product) {
-      return res.status(404).json({
-        success: false,
-        message: "Product not found"
-      });
+      return next(new ErrorHandler("Product not found", 404));
     }
 
     product = await Product.findByIdAndUpdate(req.params.id, req.body, {
@@ -77,10 +73,7 @@ export const deleteProduct = catchAsyncErrorsMiddleware(
     const product = await Product.findById(req.params.id);
 
     if (!product) {
-      return res.status(404).json({
-        success: false,
-        message: "Product not found"
-      });
+      return next(new ErrorHandler("Product not found", 404));
     }
 
     await product.remove();

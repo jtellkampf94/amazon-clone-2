@@ -1,32 +1,24 @@
 import { Request, Response, NextFunction } from "express";
 
 import Product from "../models/Product";
+import ErrorHandler from "../utils/errorHandler";
+import catchAsyncErrorsMiddleware from "../middlewares/catchAsyncErrorsMiddleware";
 
 // Create new product => /api/v1/admin/products/new
-export const createProduct = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
+export const createProduct = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
     const product = await Product.create(req.body);
 
     res.status(201).json({
       success: true,
       product
     });
-  } catch (error) {
-    console.log(error);
   }
-};
+);
 
 // Get all products => /api/v1/products
-export const getProducts = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
+export const getProducts = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
     const products = await Product.find();
 
     res.status(200).json({
@@ -34,43 +26,29 @@ export const getProducts = async (
       count: products.length,
       products
     });
-  } catch (error) {
-    console.log(error);
   }
-};
+);
 
 // Get single product => /api/v1/product/:id
-export const getSingleProduct = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
+export const getSingleProduct = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
     const product = await Product.findById(req.params.id);
 
+    console.log("GSP");
     if (!product) {
-      return res.status(404).json({
-        success: false,
-        message: "Product not found"
-      });
+      return next(new ErrorHandler("Product not found", 404));
     }
 
     res.status(200).json({
       success: true,
       product
     });
-  } catch (error) {
-    console.log(error);
   }
-};
+);
 
 // Update Product => /api/v1/admin/product/:id
-export const updateProduct = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
+export const updateProduct = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
     let product = await Product.findById(req.params.id);
 
     if (!product) {
@@ -90,18 +68,12 @@ export const updateProduct = async (
       success: true,
       product
     });
-  } catch (error) {
-    console.log(error);
   }
-};
+);
 
 // Delete product => /api/v1/admin/product/:id
-export const deleteProduct = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
+export const deleteProduct = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
     const product = await Product.findById(req.params.id);
 
     if (!product) {
@@ -117,7 +89,5 @@ export const deleteProduct = async (
       success: true,
       message: "Product is deleted"
     });
-  } catch (error) {
-    console.log(error);
   }
-};
+);

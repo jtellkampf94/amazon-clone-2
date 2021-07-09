@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import Product from "../models/Product";
 import ErrorHandler from "../utils/errorHandler";
 import catchAsyncErrorsMiddleware from "../middlewares/catchAsyncErrorsMiddleware";
+import APIFeatures from "../utils/apiFeatures";
 
 // Create new product => /api/v1/admin/products/new
 export const createProduct = catchAsyncErrorsMiddleware(
@@ -16,10 +17,12 @@ export const createProduct = catchAsyncErrorsMiddleware(
   }
 );
 
-// Get all products => /api/v1/products
+// Get all products => /api/v1/products?keyword=apple
 export const getProducts = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {
-    const products = await Product.find();
+    const apiFeatures = new APIFeatures(Product, req.query).search();
+
+    const products = await apiFeatures.query;
 
     res.status(200).json({
       success: true,

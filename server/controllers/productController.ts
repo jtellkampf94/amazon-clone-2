@@ -20,7 +20,7 @@ export const createProduct = catchAsyncErrorsMiddleware(
 // Get all products => /api/v1/products?keyword=apple
 export const getProducts = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {
-    const apiFeatures = new APIFeatures(Product, req.query).search();
+    const apiFeatures = new APIFeatures(Product, req.query).search().filter();
 
     const products = await apiFeatures.query;
 

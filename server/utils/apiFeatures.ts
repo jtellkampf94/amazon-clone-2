@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { Model } from "mongoose";
+import { Model, Query } from "mongoose";
 
 class APIFeatures {
   query: Model<any, any, any>;
@@ -39,6 +39,14 @@ class APIFeatures {
     );
 
     this.query = this.query.find(JSON.parse(queryString));
+    return this;
+  }
+
+  pagination(resultsPerPage: number) {
+    const currentPage = Number(this.queryString.page) || 1;
+    const skip = resultsPerPage * (currentPage - 1);
+    // @ts-ignore
+    this.query = this.query.limit(resultsPerPage).skip(skip);
     return this;
   }
 }

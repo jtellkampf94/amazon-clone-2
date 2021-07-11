@@ -20,13 +20,20 @@ export const createProduct = catchAsyncErrorsMiddleware(
 // Get all products => /api/v1/products?keyword=apple
 export const getProducts = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {
-    const apiFeatures = new APIFeatures(Product, req.query).search().filter();
+    const resultsPerPage = 4;
+    const productCount = await Product.countDocuments();
+
+    const apiFeatures = new APIFeatures(Product.find(), req.query)
+      .search()
+      .filter()
+      .pagination(resultsPerPage);
 
     const products = await apiFeatures.query;
 
     res.status(200).json({
       success: true,
       count: products.length,
+      productCount,
       products
     });
   }

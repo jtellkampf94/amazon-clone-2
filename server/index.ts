@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import databaseConnection from "./config/databaseConnection";
 import errorMiddleware from "./middlewares/errorMiddleware";
 import productRoutes from "./routes/productRoutes";
+import authRoutes from "./routes/authRoutes";
 import ErrorHandler from "./utils/errorHandler";
 
 dotenv.config();
@@ -12,6 +13,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/api/v1", productRoutes);
+app.use("/api/v1", authRoutes);
 app.use(errorMiddleware);
 
 // Handle uncaught exceptions

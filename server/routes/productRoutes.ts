@@ -8,15 +8,16 @@ import {
   updateProduct,
   deleteProduct
 } from "../controllers/productController";
+import { isAuthenticatedUser } from "../middlewares/authMiddleware";
 
-router.route("/products").get(getProducts);
+router.route("/products").get(isAuthenticatedUser, getProducts);
 router.route("/product/:id").get(getSingleProduct);
 
-router.route("/admin/products/new").post(createProduct);
+router.route("/admin/products/new").post(isAuthenticatedUser, createProduct);
 
 router
   .route("/admin/product/:id")
-  .put(updateProduct)
-  .delete(deleteProduct);
+  .put(isAuthenticatedUser, updateProduct)
+  .delete(isAuthenticatedUser, deleteProduct);
 
 export default router;

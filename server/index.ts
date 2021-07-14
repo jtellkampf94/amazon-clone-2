@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cookieParser from 'cookie-parser'
 
 import databaseConnection from "./config/databaseConnection";
 import errorMiddleware from "./middlewares/errorMiddleware";
@@ -11,6 +12,7 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/v1", productRoutes);
 app.use("/api/v1", authRoutes);

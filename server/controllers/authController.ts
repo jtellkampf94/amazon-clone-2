@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import User from "../models/User";
 import ErrorHandler from "../utils/errorHandler";
 import catchAsyncErrorsMiddleware from "../middlewares/catchAsyncErrorsMiddleware";
+import { sendToken } from "../utils/jwtToken";
 
 // Register user => /api/v1/register
 export const registerUser = catchAsyncErrorsMiddleware(
@@ -19,12 +20,7 @@ export const registerUser = catchAsyncErrorsMiddleware(
       }
     });
 
-    const token = user.getJwtToken();
-
-    res.status(201).json({
-      success: true,
-      token
-    });
+    sendToken(user, 200, res);
   }
 );
 
@@ -52,11 +48,21 @@ export const loginUser = catchAsyncErrorsMiddleware(
       return next(new ErrorHandler("Invalid email or passord", 401));
     }
 
-    const token = user.getJwtToken();
+    sendToken(user, 200, res);
+  }
+);
+
+// Logout user /api/v1/logout
+export const logoutUser = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
+    res.cookie("token", null, {
+      expires: new Date(Date.now()),
+      httpOnly: true
+    });
 
     res.status(200).json({
       success: true,
-      token
+      message: "Logged out"
     });
   }
 );

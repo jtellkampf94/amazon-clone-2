@@ -5,7 +5,6 @@ import ErrorHandler from "../utils/errorHandler";
 import catchAsyncErrorsMiddleware from "../middlewares/catchAsyncErrorsMiddleware";
 
 // Register user => /api/v1/register
-
 export const registerUser = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, password } = req.body;
@@ -23,6 +22,39 @@ export const registerUser = catchAsyncErrorsMiddleware(
     const token = user.getJwtToken();
 
     res.status(201).json({
+      success: true,
+      token
+    });
+  }
+);
+
+// Login user => /api/v1/login
+export const loginUser = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { email, password } = req.body;
+
+    // checks if email and password is entered by user
+    if (!email || !password) {
+      return next(new ErrorHandler("Please enter email & password", 400));
+    }
+
+    // Find user in db
+    const user = await User.findOne({ email }).select("+password");
+
+    if (!user) {
+      return next(new ErrorHandler("Invalid email or passord", 401));
+    }
+
+    // check if password is correct or not
+    const isPasswordMatched = await user.comparePassword(password);
+
+    if (!isPasswordMatched) {
+      return next(new ErrorHandler("Invalid email or passord", 401));
+    }
+
+    const token = user.getJwtToken();
+
+    res.status(200).json({
       success: true,
       token
     });

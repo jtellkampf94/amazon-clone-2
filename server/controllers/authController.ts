@@ -20,9 +20,11 @@ export const registerUser = catchAsyncErrorsMiddleware(
       }
     });
 
+    const token = user.getJwtToken();
+
     res.status(201).json({
       success: true,
-      user
+      token
     });
   }
 );

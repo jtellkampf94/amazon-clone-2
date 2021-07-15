@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import crypto from "crypto";
 
 import User from "../models/User";
 import catchAsyncErrorsMiddleware from "../middlewares/catchAsyncErrorsMiddleware";
@@ -65,6 +66,42 @@ export const forgotPassword = catchAsyncErrorsMiddleware(
 
       return next(new ErrorHandler(error.message, 500));
     }
+  }
+);
+
+// Reset password => /api/v/password/reset/:token
+export const resetPassword = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
+    // Hash URL token
+    const resetPasswordToken = crypto
+      .createHash("sha256")
+      .update(req.params.token)
+      .digest("hex");
+
+    const user = await User.findOne({
+      resetPasswordToken,
+      resetPasswordExpire: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      return next(
+        new ErrorHandler("Password reset token is invalid or expired", 400)
+      );
+    }
+
+    if (req.body.password !== req.body.confirmPassword) {
+      return next(new ErrorHandler("Password does not match", 400));
+    }
+
+    // Set up new password
+    user.password = req.body.password;
+
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+
+    sendToken(user, 200, res);
   }
 );
 

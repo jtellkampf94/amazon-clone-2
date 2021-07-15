@@ -8,6 +8,8 @@ import APIFeatures from "../utils/apiFeatures";
 // Create new product => /api/v1/admin/products/new
 export const createProduct = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {
+    //@ts-ignore
+    req.body.user = req.user.id;
     const product = await Product.create(req.body);
 
     res.status(201).json({

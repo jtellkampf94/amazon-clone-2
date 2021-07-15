@@ -29,9 +29,9 @@ export const authourizedRoles = (...roles: RoleType[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
     //@ts-ignore
     if (!roles.includes(req.user.role)) {
-      //@ts-ignore
       return next(
         new ErrorHandler(
+          //@ts-ignore
           `Role (${req.user.role}) is not allowed to access this resource`,
           403
         )

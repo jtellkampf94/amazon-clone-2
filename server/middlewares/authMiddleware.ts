@@ -21,3 +21,21 @@ export const isAuthenticatedUser = catchAsyncErrorsMiddleware(
     next();
   }
 );
+
+type RoleType = "admin" | "user";
+
+// Handling users roles
+export const authourizedRoles = (...roles: RoleType[]) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    //@ts-ignore
+    if (!roles.includes(req.user.role)) {
+      //@ts-ignore
+      return next(
+        new ErrorHandler(
+          `Role (${req.user.role}) is not allowed to access this resource`,
+          403
+        )
+      );
+    }
+  };
+};

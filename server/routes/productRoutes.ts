@@ -8,16 +8,21 @@ import {
   updateProduct,
   deleteProduct
 } from "../controllers/productController";
-import { isAuthenticatedUser } from "../middlewares/authMiddleware";
+import {
+  isAuthenticatedUser,
+  authourizedRoles
+} from "../middlewares/authMiddleware";
 
-router.route("/products").get(isAuthenticatedUser, getProducts);
+router.route("/products").get(getProducts);
 router.route("/product/:id").get(getSingleProduct);
 
-router.route("/admin/products/new").post(isAuthenticatedUser, createProduct);
+router
+  .route("/admin/products/new")
+  .post(isAuthenticatedUser, authourizedRoles("admin"), createProduct);
 
 router
   .route("/admin/product/:id")
-  .put(isAuthenticatedUser, updateProduct)
-  .delete(isAuthenticatedUser, deleteProduct);
+  .put(isAuthenticatedUser, authourizedRoles("admin"), updateProduct)
+  .delete(isAuthenticatedUser, authourizedRoles("admin"), deleteProduct);
 
 export default router;

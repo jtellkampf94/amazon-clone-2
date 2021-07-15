@@ -15,8 +15,8 @@ export const registerUser = catchAsyncErrorsMiddleware(
       email,
       password,
       avatar: {
-        publicId: "",
-        url: ""
+        publicId: "555",
+        url: "www.google.com"
       }
     });
 

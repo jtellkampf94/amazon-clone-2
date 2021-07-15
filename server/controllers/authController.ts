@@ -133,6 +133,60 @@ export const loginUser = catchAsyncErrorsMiddleware(
   }
 );
 
+// Get currently logged in user details => api/v1/profile
+export const getUserProfile = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
+    //@ts-ignore
+    const user = await User.findById(req.user.id);
+
+    res.status(200).json({
+      success: true,
+      user
+    });
+  }
+);
+
+// change password /api/v1/password/update
+export const updatePassword = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
+    //@ts-ignore
+    const user = await User.findById(req.user.id).select("+password");
+
+    // Check previous password
+    const isMatchedPassword = await user.comparePassword(req.body.oldPassword);
+
+    if (!isMatchedPassword) {
+      return next(new ErrorHandler("Old password is incorrect", 400));
+    }
+
+    user.password = req.body.password;
+    await user.save();
+
+    sendToken(user, 200, res);
+  }
+);
+
+// Update Profile => api/v1/profile
+export const updateProfile = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const newUserData = {
+      name: req.body.name,
+      email: req.body.email
+    };
+
+    //@ts-ignore
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false
+    });
+
+    res.status(200).json({
+      success: true
+    });
+  }
+);
+
 // Logout user /api/v1/logout
 export const logoutUser = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {

@@ -9,9 +9,16 @@ import {
   resetPassword,
   getUserProfile,
   updatePassword,
-  updateProfile
+  updateProfile,
+  getAllUsers,
+  getUserDetails,
+  updateUser,
+  deleteUser
 } from "../controllers/authController";
-import { isAuthenticatedUser } from "../middlewares/authMiddleware";
+import {
+  isAuthenticatedUser,
+  authourizedRoles
+} from "../middlewares/authMiddleware";
 
 router.route("/register").post(registerUser);
 
@@ -27,5 +34,15 @@ router
   .get(isAuthenticatedUser, getUserProfile)
   .put(isAuthenticatedUser, updateProfile);
 router.route("/password/update").put(isAuthenticatedUser, updatePassword);
+
+router
+  .route("/admin/users")
+  .get(isAuthenticatedUser, authourizedRoles("admin"), getAllUsers);
+
+router
+  .route("/admin/user/:id")
+  .get(isAuthenticatedUser, authourizedRoles("admin"), getUserDetails)
+  .put(isAuthenticatedUser, authourizedRoles("admin"), updateUser)
+  .delete(isAuthenticatedUser, authourizedRoles("admin"), deleteUser);
 
 export default router;

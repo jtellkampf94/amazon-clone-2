@@ -201,3 +201,75 @@ export const logoutUser = catchAsyncErrorsMiddleware(
     });
   }
 );
+
+// Admin Routes
+
+// Get all users => /api/v1/admin/users
+export const getAllUsers = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const users = await User.find();
+
+    res.status(200).json({
+      success: true,
+      users
+    });
+  }
+);
+
+// Get user detail => /api/v1/admin/user/:id
+export const getUserDetails = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return next(
+        new ErrorHandler(`User with id: ${req.params.id} does not exist`, 404)
+      );
+    }
+
+    res.status(200).json({
+      success: true,
+      user
+    });
+  }
+);
+
+// Update user Profile => api/v1/admin/user/:id
+export const updateUser = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const newUserData = {
+      name: req.body.name,
+      email: req.body.email,
+      role: req.body.role
+    };
+
+    const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false
+    });
+
+    res.status(200).json({
+      success: true
+    });
+  }
+);
+
+// Delete => /api/v1/admin/user/:id
+export const deleteUser = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return next(
+        new ErrorHandler(`User with id: ${req.params.id} does not exist`, 404)
+      );
+    }
+
+    await user.remover();
+
+    res.status(200).json({
+      success: true
+    });
+  }
+);

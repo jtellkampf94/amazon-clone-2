@@ -6,7 +6,8 @@ import {
   getSingleOrder,
   getOrders,
   getAllOrders,
-  updateOrder
+  updateOrder,
+  deleteOrder
 } from "../controllers/orderController";
 import {
   isAuthenticatedUser,
@@ -24,6 +25,7 @@ router
 
 router
   .route("/admin/order/:id")
-  .get(isAuthenticatedUser, authorizedRoles("admin"), updateOrder);
+  .get(isAuthenticatedUser, authorizedRoles("admin"), updateOrder)
+  .delete(isAuthenticatedUser, authorizedRoles("admin"), deleteOrder);
 
 export default router;

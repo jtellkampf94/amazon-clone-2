@@ -70,3 +70,65 @@ export const getOrders = catchAsyncErrorsMiddleware(
     });
   }
 );
+
+interface Order {
+  totalPrice: number;
+}
+
+// Get all orders => /api/v1/admin/orders
+export const getAllOrders = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const orders = await Order.find();
+
+    let totalAmount = 0;
+    orders.forEach((order: Order) => {
+      totalAmount += order.totalPrice;
+    });
+
+    res.status(200).json({
+      success: true,
+      totalAmount,
+      orders
+    });
+  }
+);
+
+interface Item {
+  product: string;
+  quantity: number;
+}
+
+// Update / Process orders => /api/v1/admin/order/:id
+export const updateOrder = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const order = await Order.findById(req.params.id);
+
+    if (order.orderStatus === "Delivered") {
+      return next(
+        new ErrorHandler("You have already delivered this order", 400)
+      );
+    }
+
+    order.orderItems.forEach(async (item: Item) => {
+      await updateStock(item.product, item.quantity);
+    });
+
+    order.orderStatus = req.body.status;
+    order.deliveredAt = Date.now();
+
+    await order.save();
+
+    res.status(200).json({
+      success: true,
+      order
+    });
+  }
+);
+
+const updateStock = async (id: string, quantity: number) => {
+  const product = await Product.findById(id);
+
+  product.stock = product.stock - quantity;
+
+  await product.save({validateBeforeSave: false});
+};

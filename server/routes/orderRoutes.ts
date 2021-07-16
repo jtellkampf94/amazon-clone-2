@@ -4,7 +4,9 @@ const router = express.Router();
 import {
   createOrder,
   getSingleOrder,
-  getOrders
+  getOrders,
+  getAllOrders,
+  updateOrder
 } from "../controllers/orderController";
 import {
   isAuthenticatedUser,
@@ -15,5 +17,13 @@ router.route("/order/new").post(isAuthenticatedUser, createOrder);
 
 router.route("/order/:id").get(isAuthenticatedUser, getSingleOrder);
 router.route("/orders").get(isAuthenticatedUser, getOrders);
+
+router
+  .route("/admin/orders")
+  .get(isAuthenticatedUser, authorizedRoles("admin"), getAllOrders);
+
+router
+  .route("/admin/order/:id")
+  .get(isAuthenticatedUser, authorizedRoles("admin"), updateOrder);
 
 export default router;

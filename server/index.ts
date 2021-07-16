@@ -1,11 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
-import cookieParser from 'cookie-parser'
+import cookieParser from "cookie-parser";
 
 import databaseConnection from "./config/databaseConnection";
 import errorMiddleware from "./middlewares/errorMiddleware";
 import productRoutes from "./routes/productRoutes";
 import authRoutes from "./routes/authRoutes";
+import orderRoutes from "./routes/orderRoutes";
 import ErrorHandler from "./utils/errorHandler";
 
 dotenv.config();
@@ -16,6 +17,7 @@ app.use(cookieParser());
 
 app.use("/api/v1", productRoutes);
 app.use("/api/v1", authRoutes);
+app.use("/api/v1", orderRoutes);
 app.use(errorMiddleware);
 
 // Handle uncaught exceptions

@@ -38,3 +38,35 @@ export const createOrder = catchAsyncErrorsMiddleware(
     });
   }
 );
+
+// Get single order => /api/v1/order/:id
+export const getSingleOrder = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const order = await Order.findById(req.params.id).populate(
+      "user",
+      "name email"
+    );
+
+    if (!order) {
+      return next(new ErrorHandler("No order found with this ID", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      order
+    });
+  }
+);
+
+// Get logged in users orders => /api/v1/orders
+export const getOrders = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
+    //@ts-ignore
+    const orders = await Order.find(req.user.id);
+
+    res.status(200).json({
+      success: true,
+      orders
+    });
+  }
+);

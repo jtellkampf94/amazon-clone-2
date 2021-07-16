@@ -25,7 +25,7 @@ export const isAuthenticatedUser = catchAsyncErrorsMiddleware(
 type RoleType = "admin" | "user";
 
 // Handling users roles
-export const authourizedRoles = (...roles: RoleType[]) => {
+export const authorizedRoles = (...roles: RoleType[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
     //@ts-ignore
     if (!roles.includes(req.user.role)) {

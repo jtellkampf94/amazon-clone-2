@@ -6,7 +6,10 @@ import {
   createProduct,
   getSingleProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  createProductReview,
+  getProductReviews,
+  deleteReview
 } from "../controllers/productController";
 import {
   isAuthenticatedUser,
@@ -24,5 +27,11 @@ router
   .route("/admin/product/:id")
   .put(isAuthenticatedUser, authorizedRoles("admin"), updateProduct)
   .delete(isAuthenticatedUser, authorizedRoles("admin"), deleteProduct);
+
+router
+  .route("/review")
+  .put(isAuthenticatedUser, createProductReview)
+  .delete(isAuthenticatedUser, deleteReview);
+router.route("/reviews").get(isAuthenticatedUser, getProductReviews);
 
 export default router;

@@ -1,5 +1,5 @@
 import { ProductAction } from "../actions";
-import { ActionTypes } from "../actionTypes/index";
+import { ActionTypes } from "../actionTypes";
 
 export interface Product {
   name: string;
@@ -64,10 +64,10 @@ const productReducer = (
       };
     case ActionTypes.GET_ALL_PRODUCTS_SUCCESS:
       return {
+        ...state,
         loading: false,
         products: action.payload.products,
-        productsCount: action.payload.productsCount,
-        errors: null
+        productsCount: action.payload.productsCount
       };
     case ActionTypes.GET_ALL_PRODUCTS_FAILURE:
       return {

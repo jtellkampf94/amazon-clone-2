@@ -60,5 +60,6 @@
     "@types/redux": "^3.6.0",
     "@types/redux-devtools-extension": "^2.13.2",
     "@types/redux-thunk": "^2.1.0"
-  }
+  },
+  "proxy": "https://127.0.0.1:5000"
 }

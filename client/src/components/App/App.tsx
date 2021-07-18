@@ -1,9 +1,12 @@
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 import "./App.css";
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <h1>Amazon</h1>
+      <Header />
+      <Footer />
     </div>
   );
 };

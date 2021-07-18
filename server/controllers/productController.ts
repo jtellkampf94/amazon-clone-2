@@ -22,7 +22,7 @@ export const createProduct = catchAsyncErrorsMiddleware(
 // Get all products => /api/v1/products?keyword=apple
 export const getProducts = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {
-    const resultsPerPage = 4;
+    const resultsPerPage = 8;
     const productsCount = await Product.countDocuments();
 
     const apiFeatures = new APIFeatures(Product.find(), req.query)

@@ -24,7 +24,7 @@ export const getProducts = () => async (
       payload: data
     };
 
-    return action;
+    return dispatch(action);
   } catch (error) {
     const action: GetAllProductsFailureAction = {
       type: ActionTypes.GET_ALL_PRODUCTS_FAILURE,

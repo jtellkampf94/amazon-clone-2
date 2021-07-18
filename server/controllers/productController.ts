@@ -139,7 +139,7 @@ export const createProductReview = catchAsyncErrorsMiddleware(
       product.numberOfReviews = product.reviews.length;
     }
 
-    product.ratings =
+    product.rating =
       product.reviews.reduce(
         (acc: number, review: Review) => review.rating + acc,
         0
@@ -177,7 +177,7 @@ export const deleteReview = catchAsyncErrorsMiddleware(
 
     const numberOfReviews = reviews.length;
 
-    const ratings =
+    const rating =
       product.reviews.reduce(
         (acc: number, review: Review) => review.rating + acc,
         0
@@ -185,7 +185,7 @@ export const deleteReview = catchAsyncErrorsMiddleware(
 
     await Product.findByIdAndUpdate(
       req.query.productId,
-      { reviews, ratings, numberOfReviews },
+      { reviews, rating, numberOfReviews },
       { new: true, runValidators: true, useFindAndModify: false }
     );
 

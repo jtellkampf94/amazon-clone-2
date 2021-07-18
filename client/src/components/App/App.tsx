@@ -1,3 +1,5 @@
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Home from "../Home/Home";
@@ -6,11 +8,13 @@ import "./App.css";
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <Header />
-      <Home />
-      <Footer />
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <Route exact path="/" component={Home} />
+        <Footer />
+      </div>
+    </Router>
   );
 };
 

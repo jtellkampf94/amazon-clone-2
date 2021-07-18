@@ -23,7 +23,7 @@ export const createProduct = catchAsyncErrorsMiddleware(
 export const getProducts = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {
     const resultsPerPage = 4;
-    const productCount = await Product.countDocuments();
+    const productsCount = await Product.countDocuments();
 
     const apiFeatures = new APIFeatures(Product.find(), req.query)
       .search()
@@ -35,7 +35,7 @@ export const getProducts = catchAsyncErrorsMiddleware(
     res.status(200).json({
       success: true,
       count: products.length,
-      productCount,
+      productsCount,
       products
     });
   }

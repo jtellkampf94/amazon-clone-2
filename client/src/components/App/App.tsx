@@ -11,7 +11,9 @@ const App: React.FC = () => {
     <Router>
       <div className="App">
         <Header />
-        <Route exact path="/" component={Home} />
+        <div className="container container-fluid">
+          <Route exact path="/" component={Home} />
+        </div>
         <Footer />
       </div>
     </Router>

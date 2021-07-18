@@ -1,6 +1,11 @@
+import { Fragment } from "react";
+
+import MetaData from "../MetaData/MetaData";
+
 const Home: React.FC = () => {
   return (
-    <div className="container container-fluid">
+    <Fragment>
+      <MetaData title="Buy The Best Products Online" />
       <h1 id="products_heading">Latest Products</h1>
 
       <section id="products" className="container mt-5">
@@ -30,7 +35,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-    </div>
+    </Fragment>
   );
 };
 

@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
+import { RouteComponentProps } from "react-router-dom";
 import Pagination from "react-js-pagination";
 
 import { useActions } from "../../hooks/useActions";
@@ -8,7 +9,11 @@ import MetaData from "../MetaData/MetaData";
 import Product from "../Product/Product";
 import Loader from "../Loader/Loader";
 
-const Home: React.FC = () => {
+interface Params {
+  keyword: string;
+}
+
+const Home: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const alert = useAlert();
   const {
@@ -20,14 +25,16 @@ const Home: React.FC = () => {
   } = useTypedSelector(state => state.products);
   const { getProducts } = useActions();
 
+  const keyword = match.params.keyword || "";
+
   //@ts-ignore
   useEffect(() => {
     if (errors) {
       return alert.error(errors);
     }
 
-    getProducts(currentPage);
-  }, [errors, currentPage]);
+    getProducts(keyword, currentPage);
+  }, [errors, currentPage, keyword]);
 
   const handleChange = (page: number) => {
     setCurrentPage(page);

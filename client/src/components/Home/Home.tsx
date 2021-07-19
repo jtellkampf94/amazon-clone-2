@@ -1,17 +1,23 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
+import Pagination from "react-js-pagination";
+
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-
 import MetaData from "../MetaData/MetaData";
 import Product from "../Product/Product";
 import Loader from "../Loader/Loader";
 
 const Home: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const alert = useAlert();
-  const { loading, products, productsCount, errors } = useTypedSelector(
-    state => state.products
-  );
+  const {
+    loading,
+    products,
+    productsCount,
+    errors,
+    resultsPerPage
+  } = useTypedSelector(state => state.products);
   const { getProducts } = useActions();
 
   //@ts-ignore
@@ -20,8 +26,12 @@ const Home: React.FC = () => {
       return alert.error(errors);
     }
 
-    getProducts();
-  }, [errors]);
+    getProducts(currentPage);
+  }, [errors, currentPage]);
+
+  const handleChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <Fragment>
@@ -40,6 +50,22 @@ const Home: React.FC = () => {
                 ))}
             </div>
           </section>
+          {resultsPerPage <= productsCount && (
+            <div className="d-flex justify-content-center mt-5">
+              <Pagination
+                activePage={currentPage}
+                itemsCountPerPage={resultsPerPage}
+                totalItemsCount={productsCount}
+                onChange={handleChange}
+                nextPageText="Next"
+                prevPageText="Prev"
+                lastPageText="Last"
+                firstPageText="First"
+                itemClass="page-item"
+                linkClass="page-link"
+              />
+            </div>
+          )}
         </Fragment>
       )}
     </Fragment>

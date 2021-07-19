@@ -34,7 +34,7 @@ export const getProducts = catchAsyncErrorsMiddleware(
 
     res.status(200).json({
       success: true,
-      count: products.length,
+      resultsPerPage,
       productsCount,
       products
     });

@@ -9,7 +9,7 @@ import {
 
 import { ActionTypes } from "../actionTypes";
 
-export const getProducts = () => async (
+export const getProducts = (page: number) => async (
   dispatch: Dispatch
 ): Promise<GetAllProductsSuccessAction | GetAllProductsFailureAction> => {
   try {
@@ -18,7 +18,9 @@ export const getProducts = () => async (
     };
     dispatch(getAllProductsRequestAction);
 
-    const { data } = await axios.get(`/api/v1/products`);
+    const { data } = await axios.get(
+      `/api/v1/products?page=${page.toString()}`
+    );
     const action: GetAllProductsSuccessAction = {
       type: ActionTypes.GET_ALL_PRODUCTS_SUCCESS,
       payload: data

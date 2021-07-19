@@ -42,6 +42,7 @@ interface ProductsState {
   loading: boolean;
   products: Product[];
   productsCount: number;
+  resultsPerPage: number;
   errors: null | string;
 }
 
@@ -49,6 +50,7 @@ const initialState: ProductsState = {
   loading: false,
   products: [],
   productsCount: 0,
+  resultsPerPage: 0,
   errors: null
 };
 
@@ -67,6 +69,7 @@ const productsReducer = (
       return {
         ...state,
         loading: false,
+        resultsPerPage: action.payload.resultsPerPage,
         products: action.payload.products,
         productsCount: action.payload.productsCount
       };

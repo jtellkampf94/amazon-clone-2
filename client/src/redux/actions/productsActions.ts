@@ -24,7 +24,7 @@ export interface ClearErrorsAction {
   type: ActionTypes.CLEAR_ERRORS;
 }
 
-export type ProductAction =
+export type ProductsAction =
   | GetAllProductsFailureAction
   | GetAllProductsRequestAction
   | GetAllProductsSuccessAction

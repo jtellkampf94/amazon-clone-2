@@ -1,4 +1,4 @@
-import { ProductAction } from "../actions";
+import { ProductsAction } from "../actions";
 import { ActionTypes } from "../actionTypes";
 
 export interface Product {
@@ -38,24 +38,24 @@ export interface Product {
   updatedAt: Date;
 }
 
-interface ProductState {
+interface ProductsState {
   loading: boolean;
   products: Product[];
   productsCount: number;
   errors: null | string;
 }
 
-const initialState: ProductState = {
+const initialState: ProductsState = {
   loading: false,
   products: [],
   productsCount: 0,
   errors: null
 };
 
-const productReducer = (
-  state: ProductState = initialState,
-  action: ProductAction
-): ProductState => {
+const productsReducer = (
+  state: ProductsState = initialState,
+  action: ProductsAction
+): ProductsState => {
   switch (action.type) {
     case ActionTypes.GET_ALL_PRODUCTS_REQUEST:
       return {
@@ -86,4 +86,4 @@ const productReducer = (
   }
 };
 
-export default productReducer;
+export default productsReducer;

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { Product as ProductInterface } from "../../redux/reducers/productReducer";
+import { Product as ProductInterface } from "../../redux/reducers/productsReducer";
 
 interface ProductProps {
   product: ProductInterface;

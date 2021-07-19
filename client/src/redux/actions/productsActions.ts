@@ -1,4 +1,4 @@
-import { Product } from "./../reducers/productReducer";
+import { Product } from "../reducers/productsReducer";
 import { ActionTypes } from "../actionTypes/index";
 
 export interface GetAllProductsRequestAction {

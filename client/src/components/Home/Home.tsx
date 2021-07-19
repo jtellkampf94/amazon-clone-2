@@ -1,4 +1,5 @@
 import { Fragment, useEffect } from "react";
+import { useAlert } from "react-alert";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
@@ -7,14 +8,20 @@ import Product from "../Product/Product";
 import Loader from "../Loader/Loader";
 
 const Home: React.FC = () => {
+  const alert = useAlert();
   const { loading, products, productsCount, errors } = useTypedSelector(
     state => state.products
   );
   const { getProducts } = useActions();
 
+  //@ts-ignore
   useEffect(() => {
+    if (errors) {
+      return alert.error(errors);
+    }
+
     getProducts();
-  }, []);
+  }, [errors]);
 
   return (
     <Fragment>

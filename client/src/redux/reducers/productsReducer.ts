@@ -43,6 +43,7 @@ interface ProductsState {
   products: Product[];
   productsCount: number;
   resultsPerPage: number;
+  filteredProductsCount: number;
   errors: null | string;
 }
 
@@ -51,6 +52,7 @@ const initialState: ProductsState = {
   products: [],
   productsCount: 0,
   resultsPerPage: 0,
+  filteredProductsCount: 0,
   errors: null
 };
 
@@ -71,7 +73,8 @@ const productsReducer = (
         loading: false,
         resultsPerPage: action.payload.resultsPerPage,
         products: action.payload.products,
-        productsCount: action.payload.productsCount
+        productsCount: action.payload.productsCount,
+        filteredProductsCount: action.payload.filteredProductsCount
       };
     case ActionTypes.GET_ALL_PRODUCTS_FAILURE:
       return {

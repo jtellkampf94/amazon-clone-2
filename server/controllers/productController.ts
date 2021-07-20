@@ -27,15 +27,19 @@ export const getProducts = catchAsyncErrorsMiddleware(
 
     const apiFeatures = new APIFeatures(Product.find(), req.query)
       .search()
-      .filter()
-      .pagination(resultsPerPage);
+      .filter();
 
-    const products = await apiFeatures.query;
+    let products = await apiFeatures.query;
+    let filteredProductsCount = products.length;
+
+    apiFeatures.pagination(resultsPerPage);
+    products = await apiFeatures.query;
 
     res.status(200).json({
       success: true,
       resultsPerPage,
       productsCount,
+      filteredProductsCount,
       products
     });
   }

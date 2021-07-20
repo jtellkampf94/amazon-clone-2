@@ -12,6 +12,7 @@ export interface GetAllProductsSuccessAction {
     count: number;
     productsCount: number;
     resultsPerPage: number;
+    filteredProductsCount: number;
     products: Product[];
   };
 }

@@ -21,6 +21,22 @@ interface Params {
 const Home: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([1, 1000]);
+  const [category, setCategory] = useState("");
+
+  const categories = [
+    "Electronics",
+    "Cameras",
+    "Laptops",
+    "Accessories",
+    "Headphones",
+    "Food",
+    "Books",
+    "Clothes/Shoes",
+    "Beauty/Health",
+    "Sports",
+    "Outdoor",
+    "Home"
+  ];
 
   const alert = useAlert();
   const {
@@ -28,7 +44,8 @@ const Home: React.FC<RouteComponentProps<Params>> = ({ match }) => {
     products,
     productsCount,
     errors,
-    resultsPerPage
+    resultsPerPage,
+    filteredProductsCount
   } = useTypedSelector(state => state.products);
   const { getProducts } = useActions();
 
@@ -40,12 +57,21 @@ const Home: React.FC<RouteComponentProps<Params>> = ({ match }) => {
       return alert.error(errors);
     }
 
-    getProducts(keyword, currentPage, price);
-  }, [errors, currentPage, keyword, price]);
+    getProducts(keyword, currentPage, price, category);
+  }, [errors, currentPage, keyword, price, category]);
 
   const handleChange = (page: number) => {
     setCurrentPage(page);
   };
+
+  const handleClick = (category: string) => {
+    setCategory(category);
+  };
+
+  let count = productsCount;
+  if (keyword) {
+    count = filteredProductsCount;
+  }
 
   return (
     <Fragment>
@@ -75,6 +101,27 @@ const Home: React.FC<RouteComponentProps<Params>> = ({ match }) => {
                         value={price}
                         onChange={price => setPrice(price)}
                       />
+
+                      <hr className="my-5" />
+
+                      <div className="mt-5">
+                        <h4 className="mb-3">Categories</h4>
+
+                        <ul className="pl-0">
+                          {categories.map(category => (
+                            <li
+                              key={category}
+                              onClick={() => handleClick(category)}
+                              style={{
+                                cursor: "pointer",
+                                listStyleType: "none"
+                              }}
+                            >
+                              {category}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </div>
 
@@ -93,7 +140,7 @@ const Home: React.FC<RouteComponentProps<Params>> = ({ match }) => {
               )}
             </div>
           </section>
-          {resultsPerPage <= productsCount && (
+          {resultsPerPage <= count && (
             <div className="d-flex justify-content-center mt-5">
               <Pagination
                 activePage={currentPage}

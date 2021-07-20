@@ -12,7 +12,8 @@ import { ActionTypes } from "../actionTypes";
 export const getProducts = (
   keyword: string,
   page: number,
-  price: number[]
+  price: number[],
+  category: string
 ) => async (
   dispatch: Dispatch
 ): Promise<GetAllProductsSuccessAction | GetAllProductsFailureAction> => {
@@ -25,6 +26,12 @@ export const getProducts = (
     let link = `/api/v1/products?keyword=${keyword}&page=${page.toString()}&price[lte]=${
       price[1]
     }&price[gte]=${price[0]}`;
+
+    if (category) {
+      link = `/api/v1/products?keyword=${keyword}&page=${page.toString()}&price[lte]=${
+        price[1]
+      }&price[gte]=${price[0]}&category=${category}`;
+    }
 
     const { data } = await axios.get(link);
 

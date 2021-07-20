@@ -26,7 +26,7 @@ export const registerUser = catchAsyncErrorsMiddleware(
   }
 );
 
-// Forgot password => /api/v/password/forgot
+// Forgot password => /api/v1/password/forgot
 export const forgotPassword = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {
     const user = await User.findOne({ email: req.body.email });

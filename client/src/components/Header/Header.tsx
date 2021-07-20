@@ -9,7 +9,7 @@ const Header: React.FC = () => {
     <nav className="navbar row">
       <div className="col-12 col-md-3">
         <div className="navbar-brand">
-          <Link to="\">
+          <Link to="/">
             <img
               src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
               alt="Amazon Logo"
@@ -24,9 +24,9 @@ const Header: React.FC = () => {
       </div>
 
       <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
-        <button className="btn" id="login_btn">
+        <Link to="/login" className="btn ml-4" id="login_btn">
           Login
-        </button>
+        </Link>
 
         <span id="cart" className="ml-3">
           Cart

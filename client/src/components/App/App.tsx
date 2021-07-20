@@ -4,6 +4,7 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Home from "../Home/Home";
 import ProductDetails from "../ProductDetails/ProductDetails";
+import Login from "../Login/Login";
 
 import "./App.css";
 
@@ -16,6 +17,7 @@ const App: React.FC = () => {
           <Route exact path="/" component={Home} />
           <Route exact path="/search/:keyword" component={Home} />
           <Route exact path="/product/:id" component={ProductDetails} />
+          <Route exact path="/login" component={Login} />
         </div>
         <Footer />
       </div>

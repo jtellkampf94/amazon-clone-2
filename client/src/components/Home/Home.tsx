@@ -22,6 +22,7 @@ const Home: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([1, 1000]);
   const [category, setCategory] = useState("");
+  const [rating, setRating] = useState(0)
 
   const categories = [
     "Electronics",
@@ -57,15 +58,19 @@ const Home: React.FC<RouteComponentProps<Params>> = ({ match }) => {
       return alert.error(errors);
     }
 
-    getProducts(keyword, currentPage, price, category);
-  }, [errors, currentPage, keyword, price, category]);
+    getProducts(keyword, currentPage, price, category, rating);
+  }, [errors, currentPage, keyword, price, category, rating]);
 
   const handleChange = (page: number) => {
     setCurrentPage(page);
   };
 
-  const handleClick = (category: string) => {
+  const handleCategory = (category: string) => {
     setCategory(category);
+  };
+
+  const handleRating = (rating: number) => {
+    setRating(rating);
   };
 
   let count = productsCount;
@@ -111,7 +116,7 @@ const Home: React.FC<RouteComponentProps<Params>> = ({ match }) => {
                           {categories.map(category => (
                             <li
                               key={category}
-                              onClick={() => handleClick(category)}
+                              onClick={() => handleCategory(category)}
                               style={{
                                 cursor: "pointer",
                                 listStyleType: "none"
@@ -122,6 +127,32 @@ const Home: React.FC<RouteComponentProps<Params>> = ({ match }) => {
                           ))}
                         </ul>
                       </div>
+
+                      <hr className="my-3" />
+
+                      <div className="mt-5">
+                        <h4 className="mb-3">Rating</h4>
+
+                        <ul className="pl-0">
+                          {[5,4,3,2,1].map(star => (
+                            <li
+                              key={star}
+                              onClick={() => handleRating(star)}
+                              style={{
+                                cursor: "pointer",
+                                listStyleType: "none"
+                              }}
+                            >
+                              <div className="rating-outer">
+                                <div className="rating-inner" style={{width: `${star * 20}%`}}>
+
+                                </div>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
                     </div>
                   </div>
 

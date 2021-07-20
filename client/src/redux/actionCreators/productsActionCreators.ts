@@ -13,7 +13,8 @@ export const getProducts = (
   keyword: string,
   page: number,
   price: number[],
-  category: string
+  category: string,
+  rating: number
 ) => async (
   dispatch: Dispatch
 ): Promise<GetAllProductsSuccessAction | GetAllProductsFailureAction> => {
@@ -25,12 +26,14 @@ export const getProducts = (
 
     let link = `/api/v1/products?keyword=${keyword}&page=${page.toString()}&price[lte]=${
       price[1]
-    }&price[gte]=${price[0]}`;
+    }&price[gte]=${price[0]}&rating[gte]=${rating.toString()}`;
 
     if (category) {
       link = `/api/v1/products?keyword=${keyword}&page=${page.toString()}&price[lte]=${
         price[1]
-      }&price[gte]=${price[0]}&category=${category}`;
+      }&price[gte]=${
+        price[0]
+      }&category=${category}&rating[gte]=${rating.toString()}`;
     }
 
     const { data } = await axios.get(link);

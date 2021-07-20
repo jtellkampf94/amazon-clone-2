@@ -37,6 +37,8 @@ export const getProduct = (id: string) => async (
 export const clearProductErrors = () => (
   dispatch: Dispatch
 ): ClearProductErrorsAction => {
-  const action: ClearProductErrorsAction = { type: ActionTypes.CLEAR_ERRORS };
+  const action: ClearProductErrorsAction = {
+    type: ActionTypes.CLEAR_PRODUCT_ERRORS
+  };
   return dispatch(action);
 };

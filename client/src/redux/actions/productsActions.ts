@@ -23,7 +23,7 @@ export interface GetAllProductsFailureAction {
 }
 
 export interface ClearErrorsAction {
-  type: ActionTypes.CLEAR_ERRORS;
+  type: ActionTypes.CLEAR_PRODUCTS_ERRORS;
 }
 
 export type ProductsAction =

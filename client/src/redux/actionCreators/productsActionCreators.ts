@@ -54,6 +54,6 @@ export const getProducts = (
 };
 
 export const clearErrors = () => (dispatch: Dispatch): ClearErrorsAction => {
-  const action: ClearErrorsAction = { type: ActionTypes.CLEAR_ERRORS };
+  const action: ClearErrorsAction = { type: ActionTypes.CLEAR_PRODUCTS_ERRORS };
   return dispatch(action);
 };

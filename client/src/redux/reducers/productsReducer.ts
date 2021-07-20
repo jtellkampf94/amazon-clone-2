@@ -82,7 +82,7 @@ const productsReducer = (
         loading: false,
         errors: action.payload
       };
-    case ActionTypes.CLEAR_ERRORS:
+    case ActionTypes.CLEAR_PRODUCTS_ERRORS:
       return {
         ...state,
         errors: null

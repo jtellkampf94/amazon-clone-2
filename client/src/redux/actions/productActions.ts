@@ -1,5 +1,5 @@
 import { Product } from "../reducers/productsReducer";
-import { ActionTypes } from "../actionTypes/index";
+import { ActionTypes } from "../actionTypes";
 
 export interface GetProductRequestAction {
   type: ActionTypes.GET_PRODUCT_REQUEST;
@@ -16,7 +16,7 @@ export interface GetProductFailureAction {
 }
 
 export interface ClearProductErrorsAction {
-  type: ActionTypes.CLEAR_ERRORS;
+  type: ActionTypes.CLEAR_PRODUCT_ERRORS;
 }
 
 export type ProductAction =

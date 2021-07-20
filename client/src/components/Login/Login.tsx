@@ -10,7 +10,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, clearLoginErrors } = useActions();
+  const { login, clearAuthErrors } = useActions();
   const { user, loading, errors, isAuthenticated } = useTypedSelector(
     state => state.auth
   );
@@ -23,7 +23,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
 
     if (errors) {
       alert.error(errors);
-      clearLoginErrors();
+      clearAuthErrors();
     }
   }, [alert, isAuthenticated, errors, history]);
 

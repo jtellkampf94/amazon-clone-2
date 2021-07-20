@@ -12,5 +12,9 @@ export enum ActionTypes {
   LOGIN_REQUEST = "login_request",
   LOGIN_SUCCESS = "login_success",
   LOGIN_FAILURE = "login_failure",
-  CLEAR_LOGIN_ERRORS = "clear_LOGIN_errors"
+  CLEAR_AUTH_ERRORS = "clear_auth_errors",
+
+  REGISTER_REQUEST = "register_request",
+  REGISTER_SUCCESS = "register_success",
+  REGISTER_FAILURE = "register_failure"
 }

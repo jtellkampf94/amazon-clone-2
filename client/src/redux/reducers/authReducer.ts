@@ -36,12 +36,14 @@ const authReducer = (
 ): AuthState => {
   switch (action.type) {
     case ActionTypes.LOGIN_REQUEST:
+    case ActionTypes.REGISTER_REQUEST:
       return {
         ...state,
         isAuthenticated: false,
         loading: true
       };
     case ActionTypes.LOGIN_SUCCESS:
+    case ActionTypes.REGISTER_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
@@ -49,6 +51,7 @@ const authReducer = (
         user: action.payload
       };
     case ActionTypes.LOGIN_FAILURE:
+    case ActionTypes.REGISTER_FAILURE:
       return {
         ...state,
         isAuthenticated: false,
@@ -56,7 +59,7 @@ const authReducer = (
         user: null,
         errors: action.payload
       };
-    case ActionTypes.CLEAR_LOGIN_ERRORS:
+    case ActionTypes.CLEAR_AUTH_ERRORS:
       return {
         ...state,
         errors: null

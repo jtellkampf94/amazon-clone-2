@@ -15,12 +15,29 @@ export interface LoginFailureAction {
   payload: string;
 }
 
-export interface ClearLoginErrorsAction {
-  type: ActionTypes.CLEAR_LOGIN_ERRORS;
+export interface ClearAuthErrorsAction {
+  type: ActionTypes.CLEAR_AUTH_ERRORS;
+}
+
+export interface RegisterRequestAction {
+  type: ActionTypes.REGISTER_REQUEST;
+}
+
+export interface RegisterSuccessAction {
+  type: ActionTypes.REGISTER_SUCCESS;
+  payload: User;
+}
+
+export interface RegisterFailureAction {
+  type: ActionTypes.REGISTER_FAILURE;
+  payload: string;
 }
 
 export type AuthAction =
   | LoginFailureAction
   | LoginRequestAction
   | LoginSuccessAction
-  | ClearLoginErrorsAction;
+  | ClearAuthErrorsAction
+  | RegisterRequestAction
+  | RegisterSuccessAction
+  | RegisterFailureAction;

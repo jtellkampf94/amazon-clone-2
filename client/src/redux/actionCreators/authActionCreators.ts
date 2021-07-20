@@ -4,7 +4,10 @@ import {
   LoginRequestAction,
   LoginSuccessAction,
   LoginFailureAction,
-  ClearLoginErrorsAction
+  RegisterRequestAction,
+  RegisterSuccessAction,
+  RegisterFailureAction,
+  ClearAuthErrorsAction
 } from "../actions";
 
 import { ActionTypes } from "../actionTypes";
@@ -42,11 +45,49 @@ export const login = (email: string, password: string) => async (
   }
 };
 
-export const clearLoginErrors = () => (
+interface UserData {
+  email: string;
+  password: string
+}
+
+export const register = (userData: UserData) => async (
   dispatch: Dispatch
-): ClearLoginErrorsAction => {
-  const action: ClearLoginErrorsAction = {
-    type: ActionTypes.CLEAR_LOGIN_ERRORS
+): Promise<RegisterSuccessAction | RegisterFailureAction> => {
+  try {
+    const registerRequestAction: RegisterRequestAction = {
+      type: ActionTypes.REGISTER_REQUEST
+    };
+    dispatch(registerRequestAction);
+
+    const { data } = await axios.post(
+      `/api/v1/register`,
+      userData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      }
+    );
+    const action: RegisterSuccessAction = {
+      type: ActionTypes.REGISTER_SUCCESS,
+      payload: data.user
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: RegisterFailureAction = {
+      type: ActionTypes.REGISTER_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+export const clearAuthErrors = () => (
+  dispatch: Dispatch
+): ClearAuthErrorsAction => {
+  const action: ClearAuthErrorsAction = {
+    type: ActionTypes.CLEAR_AUTH_ERRORS
   };
   return dispatch(action);
 };

@@ -4,11 +4,12 @@ import { Product as ProductInterface } from "../../redux/reducers/productsReduce
 
 interface ProductProps {
   product: ProductInterface;
+  col: number;
 }
 
-const Product: React.FC<ProductProps> = ({ product }) => {
+const Product: React.FC<ProductProps> = ({ product, col }) => {
   return (
-    <div key={product._id} className="col-sm-12 col-md-6 col-lg-3 my-3">
+    <div key={product._id} className={`col-sm-12 col-md-6 col-lg-${col} my-3`}>
       <div className="card p-3 rounded">
         <img className="card-img-top mx-auto" src={product.images[0].url} />
         <div className="card-body d-flex flex-column">

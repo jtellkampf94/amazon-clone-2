@@ -9,7 +9,11 @@ import {
 
 import { ActionTypes } from "../actionTypes";
 
-export const getProducts = (keyword: string, page: number) => async (
+export const getProducts = (
+  keyword: string,
+  page: number,
+  price: number[]
+) => async (
   dispatch: Dispatch
 ): Promise<GetAllProductsSuccessAction | GetAllProductsFailureAction> => {
   try {
@@ -18,9 +22,12 @@ export const getProducts = (keyword: string, page: number) => async (
     };
     dispatch(getAllProductsRequestAction);
 
-    const { data } = await axios.get(
-      `/api/v1/products?keyword=${keyword}&page=${page.toString()}`
-    );
+    let link = `/api/v1/products?keyword=${keyword}&page=${page.toString()}&price[lte]=${
+      price[1]
+    }&price[gte]=${price[0]}`;
+
+    const { data } = await axios.get(link);
+
     const action: GetAllProductsSuccessAction = {
       type: ActionTypes.GET_ALL_PRODUCTS_SUCCESS,
       payload: data

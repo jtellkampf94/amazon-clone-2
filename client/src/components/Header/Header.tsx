@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 
 import Search from "../Search/Search";
 
@@ -9,11 +9,13 @@ const Header: React.FC = () => {
     <nav className="navbar row">
       <div className="col-12 col-md-3">
         <div className="navbar-brand">
-          <img
-            src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
-            alt="Amazon Logo"
-            className="header__logo"
-          />
+          <Link to="\">
+            <img
+              src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
+              alt="Amazon Logo"
+              className="header__logo"
+            />
+          </Link>
         </div>
       </div>
 

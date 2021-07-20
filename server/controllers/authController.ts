@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import crypto from "crypto";
+import cloudinary from 'cloudinary'
 
 import User from "../models/User";
 import catchAsyncErrorsMiddleware from "../middlewares/catchAsyncErrorsMiddleware";
@@ -10,6 +11,12 @@ import sendEmail from "../utils/sendEmail";
 // Register user => /api/v1/register
 export const registerUser = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {
+    const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+      folder: 'avatars',
+      width: 150,
+      crop:'scale'
+    })
+    
     const { name, email, password } = req.body;
 
     const user = await User.create({
@@ -17,8 +24,8 @@ export const registerUser = catchAsyncErrorsMiddleware(
       email,
       password,
       avatar: {
-        publicId: "555",
-        url: "www.google.com"
+        publicId: result.public_id,
+        url: result.secure_url
       }
     });
 

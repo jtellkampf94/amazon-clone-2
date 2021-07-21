@@ -45,9 +45,11 @@ export const login = (email: string, password: string) => async (
   }
 };
 
-interface UserData {
+export interface UserData {
+  name: string;
   email: string;
-  password: string
+  password: string;
+  avatar: string;
 }
 
 export const register = (userData: UserData) => async (
@@ -59,15 +61,11 @@ export const register = (userData: UserData) => async (
     };
     dispatch(registerRequestAction);
 
-    const { data } = await axios.post(
-      `/api/v1/register`,
-      userData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
+    const { data } = await axios.post(`/api/v1/register`, userData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
       }
-    );
+    });
     const action: RegisterSuccessAction = {
       type: ActionTypes.REGISTER_SUCCESS,
       payload: data.user

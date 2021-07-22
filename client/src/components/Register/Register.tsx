@@ -15,10 +15,10 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
 
   const { name, email, password } = user;
 
-  const [avatar, setAvatar] = useState<string | ArrayBuffer | null>("");
-  const [avatarPreview, setAvatarPreview] = useState<
-    string | ArrayBuffer | null
-  >("");
+  const [avatar, setAvatar] = useState("");
+  const [avatarPreview, setAvatarPreview] = useState(
+    "/images/default_avatar.jpg"
+  );
 
   const { register, clearAuthErrors } = useActions();
   const { loading, errors, isAuthenticated } = useTypedSelector(
@@ -42,13 +42,16 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
       const reader = new FileReader();
 
       reader.onload = () => {
-        if (reader.readyState === 2) {
+        if (reader.readyState === 2 && typeof reader.result === "string") {
           setAvatarPreview(reader.result);
           setAvatar(reader.result);
         }
       };
 
-      if (e.target.files) reader.readAsDataURL(e.target.files[0]);
+      if (e.target.files) {
+        reader.readAsDataURL(e.target.files[0]);
+        console.log(e.target.files[0]);
+      }
     } else {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
@@ -62,6 +65,8 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
     formData.set("email", email);
     formData.set("password", password);
     formData.set("avatar", avatar);
+
+    register(formData);
   };
 
   return (

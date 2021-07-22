@@ -45,14 +45,7 @@ export const login = (email: string, password: string) => async (
   }
 };
 
-export interface UserData {
-  name: string;
-  email: string;
-  password: string;
-  avatar: string;
-}
-
-export const register = (userData: UserData) => async (
+export const register = (userData: FormData) => async (
   dispatch: Dispatch
 ): Promise<RegisterSuccessAction | RegisterFailureAction> => {
   try {

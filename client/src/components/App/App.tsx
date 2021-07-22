@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Header from "../Header/Header";
@@ -6,10 +7,17 @@ import Home from "../Home/Home";
 import ProductDetails from "../ProductDetails/ProductDetails";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
+import { useActions } from "../../hooks/useActions";
 
 import "./App.css";
 
 const App: React.FC = () => {
+  const { loadUser } = useActions();
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
   return (
     <Router>
       <div className="App">

@@ -7,7 +7,10 @@ import {
   RegisterRequestAction,
   RegisterSuccessAction,
   RegisterFailureAction,
-  ClearAuthErrorsAction
+  ClearAuthErrorsAction,
+  LoadUserRequestAction,
+  LoadUserSuccessAction,
+  LoadUserFailureAction
 } from "../actions";
 
 import { ActionTypes } from "../actionTypes";
@@ -68,6 +71,31 @@ export const register = (userData: FormData) => async (
   } catch (error) {
     const action: RegisterFailureAction = {
       type: ActionTypes.REGISTER_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+export const loadUser = () => async (
+  dispatch: Dispatch
+): Promise<LoadUserSuccessAction | LoadUserFailureAction> => {
+  try {
+    const LoadUserRequestAction: LoadUserRequestAction = {
+      type: ActionTypes.LOAD_USER_REQUEST
+    };
+    dispatch(LoadUserRequestAction);
+
+    const { data } = await axios.get(`/api/v1/profile`);
+    const action: LoadUserSuccessAction = {
+      type: ActionTypes.LOAD_USER_SUCCESS,
+      payload: data.user
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: LoadUserFailureAction = {
+      type: ActionTypes.LOAD_USER_FAILURE,
       payload: error.response.data.message
     };
     return dispatch(action);

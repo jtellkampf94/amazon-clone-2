@@ -33,6 +33,20 @@ export interface RegisterFailureAction {
   payload: string;
 }
 
+export interface LoadUserRequestAction {
+  type: ActionTypes.LOAD_USER_REQUEST;
+}
+
+export interface LoadUserSuccessAction {
+  type: ActionTypes.LOAD_USER_SUCCESS;
+  payload: User;
+}
+
+export interface LoadUserFailureAction {
+  type: ActionTypes.LOAD_USER_FAILURE;
+  payload: string;
+}
+
 export type AuthAction =
   | LoginFailureAction
   | LoginRequestAction
@@ -40,4 +54,7 @@ export type AuthAction =
   | ClearAuthErrorsAction
   | RegisterRequestAction
   | RegisterSuccessAction
-  | RegisterFailureAction;
+  | RegisterFailureAction
+  | LoadUserFailureAction
+  | LoadUserRequestAction
+  | LoadUserSuccessAction;

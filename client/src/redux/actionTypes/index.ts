@@ -16,5 +16,9 @@ export enum ActionTypes {
 
   REGISTER_REQUEST = "register_request",
   REGISTER_SUCCESS = "register_success",
-  REGISTER_FAILURE = "register_failure"
+  REGISTER_FAILURE = "register_failure",
+
+  LOAD_USER_REQUEST = "load_user_request",
+  LOAD_USER_SUCCESS = "load_user_success",
+  LOAD_USER_FAILURE = "load_user_failure"
 }

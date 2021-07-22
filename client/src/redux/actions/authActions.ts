@@ -47,6 +47,15 @@ export interface LoadUserFailureAction {
   payload: string;
 }
 
+export interface LogoutSuccessAction {
+  type: ActionTypes.LOGOUT_SUCCESS;
+}
+
+export interface LogoutFailureAction {
+  type: ActionTypes.LOGOUT_FAILURE;
+  payload: string;
+}
+
 export type AuthAction =
   | LoginFailureAction
   | LoginRequestAction
@@ -57,4 +66,6 @@ export type AuthAction =
   | RegisterFailureAction
   | LoadUserFailureAction
   | LoadUserRequestAction
-  | LoadUserSuccessAction;
+  | LoadUserSuccessAction
+  | LogoutSuccessAction
+  | LogoutFailureAction;

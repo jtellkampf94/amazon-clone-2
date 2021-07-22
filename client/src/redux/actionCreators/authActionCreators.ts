@@ -10,7 +10,9 @@ import {
   ClearAuthErrorsAction,
   LoadUserRequestAction,
   LoadUserSuccessAction,
-  LoadUserFailureAction
+  LoadUserFailureAction,
+  LogoutSuccessAction,
+  LogoutFailureAction
 } from "../actions";
 
 import { ActionTypes } from "../actionTypes";
@@ -96,6 +98,26 @@ export const loadUser = () => async (
   } catch (error) {
     const action: LoadUserFailureAction = {
       type: ActionTypes.LOAD_USER_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+export const logout = () => async (
+  dispatch: Dispatch
+): Promise<LogoutSuccessAction | LogoutFailureAction> => {
+  try {
+    await axios.get(`/api/v1/logout`);
+
+    const action: LogoutSuccessAction = {
+      type: ActionTypes.LOGOUT_SUCCESS
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: LogoutFailureAction = {
+      type: ActionTypes.LOGOUT_FAILURE,
       payload: error.response.data.message
     };
     return dispatch(action);

@@ -52,6 +52,18 @@ const authReducer = (
         loading: false,
         user: action.payload
       };
+    case ActionTypes.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isAuthenticated: false,
+        user: null
+      };
+    case ActionTypes.LOGOUT_FAILURE:
+      return {
+        ...state,
+        errors: action.payload
+      };
     case ActionTypes.LOGIN_FAILURE:
     case ActionTypes.REGISTER_FAILURE:
     case ActionTypes.LOAD_USER_FAILURE:

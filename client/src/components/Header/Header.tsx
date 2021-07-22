@@ -3,12 +3,19 @@ import { useAlert } from "react-alert";
 
 import Search from "../Search/Search";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { useActions } from "../../hooks/useActions";
 
 import "./Header.css";
 
 const Header: React.FC = () => {
   const alert = useAlert();
+  const { logout } = useActions();
   const { user, loading, errors } = useTypedSelector(state => state.auth);
+
+  const handleClick = () => {
+    logout();
+    alert.success("Logged out successfully");
+  };
 
   return (
     <nav className="navbar row">
@@ -71,7 +78,11 @@ const Header: React.FC = () => {
               <Link className="dropdown-item" to="/profile">
                 Profile
               </Link>
-              <Link className="dropdown-item text-danger" to="/">
+              <Link
+                className="dropdown-item text-danger"
+                to="/"
+                onClick={handleClick}
+              >
                 Logout
               </Link>
             </div>

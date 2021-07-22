@@ -20,5 +20,8 @@ export enum ActionTypes {
 
   LOAD_USER_REQUEST = "load_user_request",
   LOAD_USER_SUCCESS = "load_user_success",
-  LOAD_USER_FAILURE = "load_user_failure"
+  LOAD_USER_FAILURE = "load_user_failure",
+
+  LOGOUT_SUCCESS = "logout_success",
+  LOGOUT_FAILURE = "logout_failure"
 }

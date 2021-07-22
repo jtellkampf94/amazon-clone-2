@@ -7,6 +7,7 @@ import Home from "../Home/Home";
 import ProductDetails from "../ProductDetails/ProductDetails";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
+import Profile from "../Profile/Profile";
 import { useActions } from "../../hooks/useActions";
 
 import "./App.css";
@@ -28,6 +29,7 @@ const App: React.FC = () => {
           <Route exact path="/product/:id" component={ProductDetails} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/profile" component={Profile} />
         </div>
         <Footer />
       </div>

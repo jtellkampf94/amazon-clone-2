@@ -11,7 +11,6 @@ export interface UpdateProfileSuccessAction {
 
 export interface UpdateProfileResetAction {
   type: ActionTypes.UPDATE_PROFILE_RESET;
-  payload: boolean;
 }
 
 export interface UpdateProfileFailureAction {
@@ -19,8 +18,13 @@ export interface UpdateProfileFailureAction {
   payload: string;
 }
 
+export interface ClearUserErrorsAction {
+  type: ActionTypes.CLEAR_USER_ERRORS;
+}
+
 export type UserAction =
   | UpdateProfileRequestAction
   | UpdateProfileSuccessAction
   | UpdateProfileResetAction
-  | UpdateProfileFailureAction;
+  | UpdateProfileFailureAction
+  | ClearUserErrorsAction;

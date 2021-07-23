@@ -4,7 +4,8 @@ import {
   UpdateProfileRequestAction,
   UpdateProfileSuccessAction,
   UpdateProfileResetAction,
-  UpdateProfileFailureAction
+  UpdateProfileFailureAction,
+  ClearUserErrorsAction
 } from "../actions";
 
 import { ActionTypes } from "../actionTypes";
@@ -36,4 +37,22 @@ export const updateProfile = (userData: FormData) => async (
     };
     return dispatch(action);
   }
+};
+
+export const clearUserErrors = () => (
+  dispatch: Dispatch
+): ClearUserErrorsAction => {
+  const action: ClearUserErrorsAction = {
+    type: ActionTypes.CLEAR_USER_ERRORS
+  };
+  return dispatch(action);
+};
+
+export const updateProfileReset = () => (
+  dispatch: Dispatch
+): UpdateProfileResetAction => {
+  const action: UpdateProfileResetAction = {
+    type: ActionTypes.UPDATE_PROFILE_RESET
+  };
+  return dispatch(action);
 };

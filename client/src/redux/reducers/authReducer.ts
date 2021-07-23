@@ -1,4 +1,4 @@
-import { AuthAction } from "./../actions/authActions";
+import { AuthAction } from "./../actions";
 import { ActionTypes } from "../actionTypes";
 
 export interface User {

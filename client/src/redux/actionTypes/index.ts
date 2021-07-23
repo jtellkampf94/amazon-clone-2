@@ -23,5 +23,15 @@ export enum ActionTypes {
   LOAD_USER_FAILURE = "load_user_failure",
 
   LOGOUT_SUCCESS = "logout_success",
-  LOGOUT_FAILURE = "logout_failure"
+  LOGOUT_FAILURE = "logout_failure",
+
+  UPDATE_PASSWORD_REQUEST = "update_password_request",
+  UPDATE_PASSWORD_SUCCESS = "update_password_success",
+  UPDATE_PASSWORD_FAILURE = "update_password_failure",
+  CLEAR_USER_ERRORS = "clear_user_errors",
+
+  UPDATE_PROFILE_REQUEST = "update_profile_request",
+  UPDATE_PROFILE_SUCCESS = "update_profile_success",
+  UPDATE_PROFILE_RESET = "update_profile_reset",
+  UPDATE_PROFILE_FAILURE = "update_profile_failure"
 }

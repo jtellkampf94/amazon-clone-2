@@ -5,12 +5,14 @@ interface UserState {
   isUpdated: boolean;
   loading: boolean;
   errors: string | null;
+  message: string | null;
 }
 
 const initialState: UserState = {
   isUpdated: false,
   loading: false,
-  errors: null
+  errors: null,
+  message: null
 };
 
 const userReducer = (
@@ -20,9 +22,12 @@ const userReducer = (
   switch (action.type) {
     case ActionTypes.UPDATE_PASSWORD_REQUEST:
     case ActionTypes.UPDATE_PROFILE_REQUEST:
+    case ActionTypes.FORGOT_PASSWORD_REQUEST:
       return {
         ...state,
-        loading: true
+        loading: true,
+        errors: null,
+        message: null
       };
     case ActionTypes.UPDATE_PASSWORD_SUCCESS:
     case ActionTypes.UPDATE_PROFILE_SUCCESS:
@@ -30,6 +35,11 @@ const userReducer = (
         ...state,
         loading: false,
         isUpdated: action.payload
+      };
+    case ActionTypes.FORGOT_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        message: action.payload
       };
     case ActionTypes.UPDATE_PASSWORD_RESET:
     case ActionTypes.UPDATE_PROFILE_RESET:
@@ -39,6 +49,7 @@ const userReducer = (
       };
     case ActionTypes.UPDATE_PASSWORD_FAILURE:
     case ActionTypes.UPDATE_PROFILE_FAILURE:
+    case ActionTypes.FORGOT_PASSWORD_FAILURE:
       return {
         ...state,
         loading: false,

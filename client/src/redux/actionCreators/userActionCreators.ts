@@ -9,6 +9,9 @@ import {
   UpdatePasswordSuccessAction,
   UpdatePasswordResetAction,
   UpdatePasswordFailureAction,
+  ForgotPasswordRequestAction,
+  ForgotPasswordSuccessAction,
+  ForgotPasswordFailureAction,
   ClearUserErrorsAction
 } from "../actions";
 
@@ -71,6 +74,35 @@ export const updatePassword = (passwords: Passwords) => async (
   } catch (error) {
     const action: UpdatePasswordFailureAction = {
       type: ActionTypes.UPDATE_PASSWORD_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+export const forgotPassword = (email: string) => async (
+  dispatch: Dispatch
+): Promise<ForgotPasswordSuccessAction | ForgotPasswordFailureAction> => {
+  try {
+    const forgotPasswordRequestAction: ForgotPasswordRequestAction = {
+      type: ActionTypes.FORGOT_PASSWORD_REQUEST
+    };
+    dispatch(forgotPasswordRequestAction);
+
+    const { data } = await axios.post(`/api/v1/password/forgot`, email, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    const action: ForgotPasswordSuccessAction = {
+      type: ActionTypes.FORGOT_PASSWORD_SUCCESS,
+      payload: data.message
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: ForgotPasswordFailureAction = {
+      type: ActionTypes.FORGOT_PASSWORD_FAILURE,
       payload: error.response.data.message
     };
     return dispatch(action);

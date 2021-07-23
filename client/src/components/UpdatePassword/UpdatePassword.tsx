@@ -48,7 +48,7 @@ const UpdatePassword: React.FC<RouteComponentProps> = ({ history }) => {
                 id="old_password_field"
                 className="form-control"
                 value={oldPassword}
-                onChange={e => setOldPassword(e.target.name)}
+                onChange={e => setOldPassword(e.target.value)}
               />
             </div>
 

@@ -34,5 +34,9 @@ export enum ActionTypes {
   UPDATE_PROFILE_REQUEST = "update_profile_request",
   UPDATE_PROFILE_SUCCESS = "update_profile_success",
   UPDATE_PROFILE_RESET = "update_profile_reset",
-  UPDATE_PROFILE_FAILURE = "update_profile_failure"
+  UPDATE_PROFILE_FAILURE = "update_profile_failure",
+
+  FORGOT_PASSWORD_REQUEST = "forgot_password_request",
+  FORGOT_PASSWORD_SUCCESS = "forgot_password_success",
+  FORGOT_PASSWORD_FAILURE = "forgot_password_failure"
 }

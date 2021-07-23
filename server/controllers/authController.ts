@@ -166,7 +166,7 @@ export const updatePassword = catchAsyncErrorsMiddleware(
       return next(new ErrorHandler("Old password is incorrect", 400));
     }
 
-    user.password = req.body.password;
+    user.password = req.body.newPassword;
     await user.save();
 
     sendToken(user, 200, res);

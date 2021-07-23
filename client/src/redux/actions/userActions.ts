@@ -36,6 +36,20 @@ export interface UpdatePasswordFailureAction {
   payload: string;
 }
 
+export interface ForgotPasswordRequestAction {
+  type: ActionTypes.FORGOT_PASSWORD_REQUEST;
+}
+
+export interface ForgotPasswordSuccessAction {
+  type: ActionTypes.FORGOT_PASSWORD_SUCCESS;
+  payload: string;
+}
+
+export interface ForgotPasswordFailureAction {
+  type: ActionTypes.FORGOT_PASSWORD_FAILURE;
+  payload: string;
+}
+
 export interface ClearUserErrorsAction {
   type: ActionTypes.CLEAR_USER_ERRORS;
 }
@@ -49,4 +63,7 @@ export type UserAction =
   | UpdatePasswordSuccessAction
   | UpdatePasswordResetAction
   | UpdatePasswordFailureAction
+  | ForgotPasswordRequestAction
+  | ForgotPasswordSuccessAction
+  | ForgotPasswordFailureAction
   | ClearUserErrorsAction;

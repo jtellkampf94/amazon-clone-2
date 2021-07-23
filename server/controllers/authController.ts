@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import crypto from "crypto";
-import cloudinary from 'cloudinary'
+import cloudinary from "cloudinary";
 
 import User from "../models/User";
 import catchAsyncErrorsMiddleware from "../middlewares/catchAsyncErrorsMiddleware";
@@ -12,11 +12,11 @@ import sendEmail from "../utils/sendEmail";
 export const registerUser = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {
     const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
-      folder: 'avatars',
+      folder: "avatars",
       width: 150,
-      crop:'scale'
-    })
-    
+      crop: "scale"
+    });
+
     const { name, email, password } = req.body;
 
     const user = await User.create({
@@ -173,16 +173,46 @@ export const updatePassword = catchAsyncErrorsMiddleware(
   }
 );
 
+interface UserData {
+  name?: string;
+  email?: string;
+  avatar?:
+    | string
+    | {
+        publicId: string;
+        url: string;
+      };
+}
+
 // Update Profile => api/v1/profile
 export const updateProfile = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {
-    const newUserData = {
+    const newUserData: UserData = {
       name: req.body.name,
       email: req.body.email
     };
 
+    if (req.body.avatar !== "") {
+      //@ts-ignore
+      const user = await User.findById(req.user.id);
+
+      const imageId = user.avatar.publicId;
+      await cloudinary.v2.uploader.destroy(imageId);
+
+      const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        folder: "avatars",
+        width: 150,
+        crop: "scale"
+      });
+
+      newUserData.avatar = {
+        publicId: result.public_id,
+        url: result.secure_url
+      };
+    }
+
     //@ts-ignore
-    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+    await User.findByIdAndUpdate(req.user.id, newUserData, {
       new: true,
       runValidators: true,
       useFindAndModify: false

@@ -8,6 +8,7 @@ import ProductDetails from "../ProductDetails/ProductDetails";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Profile from "../Profile/Profile";
+import UpdateProfile from "../UpdateProfile/UpdateProfile";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { useActions } from "../../hooks/useActions";
 
@@ -31,6 +32,11 @@ const App: React.FC = () => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <ProtectedRoute exact path="/profile" component={Profile} />
+          <ProtectedRoute
+            exact
+            path="/profile/update"
+            component={UpdateProfile}
+          />
         </div>
         <Footer />
       </div>

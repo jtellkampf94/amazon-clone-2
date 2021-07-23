@@ -46,7 +46,7 @@ const UpdateProfile: React.FC<RouteComponentProps> = ({ history }) => {
 
       history.push("/profile");
 
-      updateProfileReset;
+      updateProfileReset();
     }
   }, [alert, errors, history, isUpdated]);
 

@@ -9,6 +9,7 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Profile from "../Profile/Profile";
 import UpdateProfile from "../UpdateProfile/UpdateProfile";
+import UpdatePassword from "../UpdatePassword/UpdatePassword";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { useActions } from "../../hooks/useActions";
 
@@ -36,6 +37,11 @@ const App: React.FC = () => {
             exact
             path="/profile/update"
             component={UpdateProfile}
+          />
+          <ProtectedRoute
+            exact
+            path="/password/update"
+            component={UpdatePassword}
           />
         </div>
         <Footer />

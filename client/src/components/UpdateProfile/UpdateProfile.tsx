@@ -3,7 +3,6 @@ import { useAlert } from "react-alert";
 import { RouteComponentProps } from "react-router-dom";
 
 import MetaData from "../MetaData/MetaData";
-import Loader from "../Loader/Loader";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
@@ -16,7 +15,6 @@ const UpdateProfile: React.FC<RouteComponentProps> = ({ history }) => {
   );
 
   const {
-    register,
     clearUserErrors,
     updateProfile,
     updateProfileReset,

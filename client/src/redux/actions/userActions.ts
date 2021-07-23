@@ -18,6 +18,24 @@ export interface UpdateProfileFailureAction {
   payload: string;
 }
 
+export interface UpdatePasswordRequestAction {
+  type: ActionTypes.UPDATE_PASSWORD_REQUEST;
+}
+
+export interface UpdatePasswordSuccessAction {
+  type: ActionTypes.UPDATE_PASSWORD_SUCCESS;
+  payload: boolean;
+}
+
+export interface UpdatePasswordResetAction {
+  type: ActionTypes.UPDATE_PASSWORD_RESET;
+}
+
+export interface UpdatePasswordFailureAction {
+  type: ActionTypes.UPDATE_PASSWORD_FAILURE;
+  payload: string;
+}
+
 export interface ClearUserErrorsAction {
   type: ActionTypes.CLEAR_USER_ERRORS;
 }
@@ -27,4 +45,8 @@ export type UserAction =
   | UpdateProfileSuccessAction
   | UpdateProfileResetAction
   | UpdateProfileFailureAction
+  | UpdatePasswordRequestAction
+  | UpdatePasswordSuccessAction
+  | UpdatePasswordResetAction
+  | UpdatePasswordFailureAction
   | ClearUserErrorsAction;

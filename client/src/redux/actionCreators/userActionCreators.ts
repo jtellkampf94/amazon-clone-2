@@ -5,6 +5,10 @@ import {
   UpdateProfileSuccessAction,
   UpdateProfileResetAction,
   UpdateProfileFailureAction,
+  UpdatePasswordRequestAction,
+  UpdatePasswordSuccessAction,
+  UpdatePasswordResetAction,
+  UpdatePasswordFailureAction,
   ClearUserErrorsAction
 } from "../actions";
 
@@ -39,6 +43,40 @@ export const updateProfile = (userData: FormData) => async (
   }
 };
 
+interface Passwords {
+  oldPassword: string;
+  newPassword: string;
+}
+
+export const updatePassword = (passwords: Passwords) => async (
+  dispatch: Dispatch
+): Promise<UpdatePasswordSuccessAction | UpdatePasswordFailureAction> => {
+  try {
+    const updatePasswordRequestAction: UpdatePasswordRequestAction = {
+      type: ActionTypes.UPDATE_PASSWORD_REQUEST
+    };
+    dispatch(updatePasswordRequestAction);
+
+    const { data } = await axios.put(`/api/v1/password/update`, passwords, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    const action: UpdatePasswordSuccessAction = {
+      type: ActionTypes.UPDATE_PASSWORD_SUCCESS,
+      payload: data.success
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: UpdatePasswordFailureAction = {
+      type: ActionTypes.UPDATE_PASSWORD_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
 export const clearUserErrors = () => (
   dispatch: Dispatch
 ): ClearUserErrorsAction => {
@@ -53,6 +91,15 @@ export const updateProfileReset = () => (
 ): UpdateProfileResetAction => {
   const action: UpdateProfileResetAction = {
     type: ActionTypes.UPDATE_PROFILE_RESET
+  };
+  return dispatch(action);
+};
+
+export const updatePasswordReset = () => (
+  dispatch: Dispatch
+): UpdatePasswordResetAction => {
+  const action: UpdatePasswordResetAction = {
+    type: ActionTypes.UPDATE_PASSWORD_RESET
   };
   return dispatch(action);
 };

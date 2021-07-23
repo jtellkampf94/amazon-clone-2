@@ -18,22 +18,26 @@ const userReducer = (
   action: UserAction
 ): UserState => {
   switch (action.type) {
+    case ActionTypes.UPDATE_PASSWORD_REQUEST:
     case ActionTypes.UPDATE_PROFILE_REQUEST:
       return {
         ...state,
         loading: true
       };
+    case ActionTypes.UPDATE_PASSWORD_SUCCESS:
     case ActionTypes.UPDATE_PROFILE_SUCCESS:
       return {
         ...state,
         loading: false,
         isUpdated: action.payload
       };
+    case ActionTypes.UPDATE_PASSWORD_RESET:
     case ActionTypes.UPDATE_PROFILE_RESET:
       return {
         ...state,
         isUpdated: false
       };
+    case ActionTypes.UPDATE_PASSWORD_FAILURE:
     case ActionTypes.UPDATE_PROFILE_FAILURE:
       return {
         ...state,

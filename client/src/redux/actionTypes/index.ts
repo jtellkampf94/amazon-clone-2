@@ -27,6 +27,7 @@ export enum ActionTypes {
 
   UPDATE_PASSWORD_REQUEST = "update_password_request",
   UPDATE_PASSWORD_SUCCESS = "update_password_success",
+  UPDATE_PASSWORD_RESET = "update_password_reset",
   UPDATE_PASSWORD_FAILURE = "update_password_failure",
   CLEAR_USER_ERRORS = "clear_user_errors",
 

@@ -13,9 +13,9 @@ interface Params {
 }
 
 const ProductDetails: React.FC<RouteComponentProps<Params>> = ({ match }) => {
-  const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState(1);
   const { product, loading, errors } = useTypedSelector(state => state.product);
-  const { getProduct, clearProductErrors } = useActions();
+  const { getProduct, clearProductErrors, addToCart } = useActions();
   const alert = useAlert();
 
   useEffect(() => {
@@ -28,23 +28,28 @@ const ProductDetails: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   }, [alert, errors, match.params.id]);
 
   const increaseQty = () => {
-    const count = document.querySelector('.count')
+    const count = document.querySelector(".count");
 
-    if(count.valueAsNumber >= product.stock) return
+    if (count.valueAsNumber >= product.stock) return;
 
-    const qty = count.valueAsNumber + 1
-    setQuantity(qty) 
-  }
+    const qty = count.valueAsNumber + 1;
+    setQuantity(qty);
+  };
 
   const decreaseQty = () => {
-    const count = document.querySelector('.count')
+    const count = document.querySelector(".count");
 
-    if(count.valueAsNumber <= 1) return
+    if (count.valueAsNumber <= 1) return;
 
-    const qty = count.valueAsNumber - 1
-    setQuantity(qty) 
-  }
- 
+    const qty = count.valueAsNumber - 1;
+    setQuantity(qty);
+  };
+
+  const addItemTocart = () => {
+    addToCart(match.params.id, quantity);
+    alert.success("Item added to cart");
+  };
+
   return (
     <Fragment>
       {loading ? (
@@ -87,7 +92,9 @@ const ProductDetails: React.FC<RouteComponentProps<Params>> = ({ match }) => {
 
               <p id="product_price">${product?.price}</p>
               <div className="stockCounter d-inline">
-                <span className="btn btn-danger minus" onClick={decreaseQty}>-</span>
+                <span className="btn btn-danger minus" onClick={decreaseQty}>
+                  -
+                </span>
 
                 <input
                   type="number"
@@ -96,12 +103,16 @@ const ProductDetails: React.FC<RouteComponentProps<Params>> = ({ match }) => {
                   readOnly
                 />
 
-                <span className="btn btn-primary plus" onClick={increaseQty}>+</span>
+                <span className="btn btn-primary plus" onClick={increaseQty}>
+                  +
+                </span>
               </div>
               <button
                 type="button"
                 id="cart_btn"
                 className="btn btn-primary d-inline ml-4"
+                onClick={addItemTocart}
+                disabled={product?.stock === 0}
               >
                 Add to Cart
               </button>

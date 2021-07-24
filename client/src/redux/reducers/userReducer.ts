@@ -39,6 +39,7 @@ const userReducer = (
     case ActionTypes.FORGOT_PASSWORD_SUCCESS:
       return {
         ...state,
+        loading: false,
         message: action.payload
       };
     case ActionTypes.UPDATE_PASSWORD_RESET:

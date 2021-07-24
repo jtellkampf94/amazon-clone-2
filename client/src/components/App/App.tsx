@@ -11,6 +11,7 @@ import Profile from "../Profile/Profile";
 import UpdateProfile from "../UpdateProfile/UpdateProfile";
 import UpdatePassword from "../UpdatePassword/UpdatePassword";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
+import NewPassword from "../NewPassword/NewPassword";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { useActions } from "../../hooks/useActions";
 
@@ -34,6 +35,7 @@ const App: React.FC = () => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/password/forgot" component={ForgotPassword} />
+          <Route exact path="/password/reset/:token" component={NewPassword} />
           <ProtectedRoute exact path="/profile" component={Profile} />
           <ProtectedRoute
             exact

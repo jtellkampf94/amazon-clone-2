@@ -112,7 +112,12 @@ export const forgotPassword = (email: string) => async (
   }
 };
 
-export const resetPassword = (token: string, passwords: Passwords) => async (
+interface NewPasswords {
+  password: string;
+  confirmPassword: string;
+}
+
+export const resetPassword = (token: string, passwords: NewPasswords) => async (
   dispatch: Dispatch
 ): Promise<NewPasswordSuccessAction | NewPasswordFailureAction> => {
   try {
@@ -121,11 +126,15 @@ export const resetPassword = (token: string, passwords: Passwords) => async (
     };
     dispatch(newPasswordRequestAction);
 
-    const { data } = await axios.put(`/api/v1/password/reset/${token}`, passwords, {
-      headers: {
-        "Content-Type": "application/json"
+    const { data } = await axios.put(
+      `/api/v1/password/reset/${token}`,
+      passwords,
+      {
+        headers: {
+          "Content-Type": "application/json"
+        }
       }
-    });
+    );
     const action: NewPasswordSuccessAction = {
       type: ActionTypes.NEW_PASSWORD_SUCCESS,
       payload: data.success

@@ -42,5 +42,7 @@ export enum ActionTypes {
 
   NEW_PASSWORD_REQUEST = "new_password_request",
   NEW_PASSWORD_SUCCESS = "new_password_success",
-  NEW_PASSWORD_FAILURE = "new_password_failure"
+  NEW_PASSWORD_FAILURE = "new_password_failure",
+
+  ADD_TO_CART = "add_to_cart"
 }

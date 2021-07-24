@@ -38,5 +38,9 @@ export enum ActionTypes {
 
   FORGOT_PASSWORD_REQUEST = "forgot_password_request",
   FORGOT_PASSWORD_SUCCESS = "forgot_password_success",
-  FORGOT_PASSWORD_FAILURE = "forgot_password_failure"
+  FORGOT_PASSWORD_FAILURE = "forgot_password_failure",
+
+  NEW_PASSWORD_REQUEST = "new_password_request",
+  NEW_PASSWORD_SUCCESS = "new_password_success",
+  NEW_PASSWORD_FAILURE = "new_password_failure"
 }

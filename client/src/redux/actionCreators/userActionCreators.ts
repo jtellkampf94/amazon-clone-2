@@ -12,6 +12,9 @@ import {
   ForgotPasswordRequestAction,
   ForgotPasswordSuccessAction,
   ForgotPasswordFailureAction,
+  NewPasswordRequestAction,
+  NewPasswordSuccessAction,
+  NewPasswordFailureAction,
   ClearUserErrorsAction
 } from "../actions";
 
@@ -103,6 +106,35 @@ export const forgotPassword = (email: string) => async (
   } catch (error) {
     const action: ForgotPasswordFailureAction = {
       type: ActionTypes.FORGOT_PASSWORD_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+export const resetPassword = (token: string, passwords: Passwords) => async (
+  dispatch: Dispatch
+): Promise<NewPasswordSuccessAction | NewPasswordFailureAction> => {
+  try {
+    const newPasswordRequestAction: NewPasswordRequestAction = {
+      type: ActionTypes.NEW_PASSWORD_REQUEST
+    };
+    dispatch(newPasswordRequestAction);
+
+    const { data } = await axios.put(`/api/v1/password/reset/${token}`, passwords, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    const action: NewPasswordSuccessAction = {
+      type: ActionTypes.NEW_PASSWORD_SUCCESS,
+      payload: data.success
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: NewPasswordFailureAction = {
+      type: ActionTypes.NEW_PASSWORD_FAILURE,
       payload: error.response.data.message
     };
     return dispatch(action);

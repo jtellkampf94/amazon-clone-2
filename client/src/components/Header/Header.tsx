@@ -10,7 +10,10 @@ import "./Header.css";
 const Header: React.FC = () => {
   const alert = useAlert();
   const { logout } = useActions();
-  const { user, loading, errors } = useTypedSelector(state => state.auth);
+  const {
+    auth: { user, loading },
+    cart: { cartItems }
+  } = useTypedSelector(state => state);
 
   const handleClick = () => {
     logout();
@@ -41,7 +44,7 @@ const Header: React.FC = () => {
             Cart
           </span>
           <span className="ml-1" id="cart_count">
-            2
+            {cartItems.length}
           </span>
         </Link>
         {user ? (

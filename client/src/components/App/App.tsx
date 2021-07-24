@@ -12,6 +12,7 @@ import UpdateProfile from "../UpdateProfile/UpdateProfile";
 import UpdatePassword from "../UpdatePassword/UpdatePassword";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import NewPassword from "../NewPassword/NewPassword";
+import Cart from "../Cart/Cart";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { useActions } from "../../hooks/useActions";
 
@@ -36,6 +37,7 @@ const App: React.FC = () => {
           <Route exact path="/register" component={Register} />
           <Route exact path="/password/forgot" component={ForgotPassword} />
           <Route exact path="/password/reset/:token" component={NewPassword} />
+          <Route exact path="/cart" component={Cart} />
           <ProtectedRoute exact path="/profile" component={Profile} />
           <ProtectedRoute
             exact

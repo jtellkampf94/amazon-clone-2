@@ -92,11 +92,15 @@ export const forgotPassword = (email: string) => async (
     };
     dispatch(forgotPasswordRequestAction);
 
-    const { data } = await axios.post(`/api/v1/password/forgot`, email, {
-      headers: {
-        "Content-Type": "application/json"
+    const { data } = await axios.post(
+      `/api/v1/password/forgot`,
+      { email },
+      {
+        headers: {
+          "Content-Type": "application/json"
+        }
       }
-    });
+    );
     const action: ForgotPasswordSuccessAction = {
       type: ActionTypes.FORGOT_PASSWORD_SUCCESS,
       payload: data.message

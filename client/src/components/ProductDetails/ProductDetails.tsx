@@ -28,21 +28,25 @@ const ProductDetails: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   }, [alert, errors, match.params.id]);
 
   const increaseQty = () => {
-    const count = document.querySelector(".count");
+    const count: HTMLInputElement | null = document.querySelector(".count");
 
-    if (count.valueAsNumber >= product.stock) return;
+    if (count && product) {
+      if (count.valueAsNumber >= product.stock) return;
 
-    const qty = count.valueAsNumber + 1;
-    setQuantity(qty);
+      const qty = count.valueAsNumber + 1;
+      setQuantity(qty);
+    }
   };
 
   const decreaseQty = () => {
-    const count = document.querySelector(".count");
+    const count: HTMLInputElement | null = document.querySelector(".count");
 
-    if (count.valueAsNumber <= 1) return;
+    if (count) {
+      if (count.valueAsNumber <= 1) return;
 
-    const qty = count.valueAsNumber - 1;
-    setQuantity(qty);
+      const qty = count.valueAsNumber - 1;
+      setQuantity(qty);
+    }
   };
 
   const addItemTocart = () => {

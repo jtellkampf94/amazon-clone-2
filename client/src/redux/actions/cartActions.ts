@@ -6,4 +6,9 @@ export interface AddToCartAction {
   payload: CartItem;
 }
 
-export type CartAction = AddToCartAction;
+export interface RemoveFromCartAction {
+  type: ActionTypes.REMOVE_FROM_CART;
+  payload: string;
+}
+
+export type CartAction = AddToCartAction | RemoveFromCartAction;

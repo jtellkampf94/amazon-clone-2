@@ -1,14 +1,14 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { RootState } from "./../reducers";
-import { AddToCartAction } from "../actions";
+import { AddToCartAction, RemoveFromCartAction } from "../actions";
 
 import { ActionTypes } from "../actionTypes";
 
 export const addToCart = (id: string, quantity: number) => async (
   dispatch: Dispatch,
   getState: () => RootState
-) => {
+): Promise<AddToCartAction> => {
   const { data } = await axios.get(`/api/v1/product/${id}`);
 
   const action: AddToCartAction = {
@@ -24,5 +24,18 @@ export const addToCart = (id: string, quantity: number) => async (
   };
 
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
-  dispatch(action);
+  return dispatch(action);
+};
+
+export const removeFromCart = (id: string) => (
+  dispatch: Dispatch,
+  getState: () => RootState
+): RemoveFromCartAction => {
+  const action: RemoveFromCartAction = {
+    type: ActionTypes.REMOVE_FROM_CART,
+    payload: id
+  };
+
+  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
+  return dispatch(action);
 };

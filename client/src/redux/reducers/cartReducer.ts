@@ -10,14 +10,22 @@ export interface CartItem {
   quantity: number;
 }
 
+export interface ShippingInfo {
+  address: string;
+  city: string;
+  postalCode: string;
+  phoneNumber: number;
+  country: string;
+}
+
 interface CartState {
   cartItems: CartItem[];
-  shippingInfo: null | string;
+  shippingInfo: null | ShippingInfo;
 }
 
 const initialState: CartState = {
   cartItems: JSON.parse(localStorage.getItem("cartItems") || "[]"),
-  shippingInfo: null
+  shippingInfo: JSON.parse(localStorage.getItem("shippingInfo") || "null")
 };
 
 const cartReducer = (

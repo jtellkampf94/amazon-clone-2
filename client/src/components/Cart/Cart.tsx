@@ -1,12 +1,11 @@
-import { Fragment, useState, useEffect } from "react";
-import { useAlert } from "react-alert";
+import { Fragment } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import MetaData from "../MetaData/MetaData";
 
-const Cart: React.FC = () => {
+const Cart: React.FC<RouteComponentProps> = ({ history }) => {
   const { addToCart, removeFromCart } = useActions();
   const { cartItems } = useTypedSelector(state => state.cart);
 
@@ -132,7 +131,11 @@ const Cart: React.FC = () => {
                 </p>
 
                 <hr />
-                <button id="checkout_btn" className="btn btn-primary btn-block">
+                <button
+                  onClick={() => history.push("/login?redirect=shipping")}
+                  id="checkout_btn"
+                  className="btn btn-primary btn-block"
+                >
                   Check out
                 </button>
               </div>

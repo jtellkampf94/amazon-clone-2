@@ -13,6 +13,7 @@ import UpdatePassword from "../UpdatePassword/UpdatePassword";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import NewPassword from "../NewPassword/NewPassword";
 import Cart from "../Cart/Cart";
+import Shipping from "../Shipping/Shipping";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { useActions } from "../../hooks/useActions";
 
@@ -49,6 +50,7 @@ const App: React.FC = () => {
             path="/password/update"
             component={UpdatePassword}
           />
+          <ProtectedRoute exact path="/shipping" component={Shipping} />
         </div>
         <Footer />
       </div>

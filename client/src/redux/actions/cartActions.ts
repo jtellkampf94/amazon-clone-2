@@ -1,5 +1,5 @@
 import { ActionTypes } from "../actionTypes";
-import { CartItem } from "./../reducers/cartReducer";
+import { CartItem, ShippingInfo } from "../reducers/cartReducer";
 
 export interface AddToCartAction {
   type: ActionTypes.ADD_TO_CART;
@@ -13,7 +13,7 @@ export interface RemoveFromCartAction {
 
 export interface SaveShippingInfoAction {
   type: ActionTypes.SAVE_SHIPPING_INFO;
-  payload: string;
+  payload: ShippingInfo;
 }
 
 export type CartAction =

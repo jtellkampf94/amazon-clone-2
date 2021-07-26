@@ -8,6 +8,7 @@ import {
 } from "../actions";
 
 import { ActionTypes } from "../actionTypes";
+import { ShippingInfo } from "../reducers/cartReducer";
 
 export const addToCart = (id: string, quantity: number) => async (
   dispatch: Dispatch,
@@ -44,7 +45,9 @@ export const removeFromCart = (id: string) => (
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
 
-export const saveShippingInfo = (data: string) => (dispatch: Dispatch) => {
+export const saveShippingInfo = (data: ShippingInfo) => (
+  dispatch: Dispatch
+) => {
   const action: SaveShippingInfoAction = {
     type: ActionTypes.SAVE_SHIPPING_INFO,
     payload: data

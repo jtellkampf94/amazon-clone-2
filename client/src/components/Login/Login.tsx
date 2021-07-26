@@ -7,7 +7,7 @@ import MetaData from "../MetaData/MetaData";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
-const Login: React.FC<RouteComponentProps> = ({ history }) => {
+const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, clearAuthErrors } = useActions();
@@ -16,9 +16,11 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   );
   const alert = useAlert();
 
+  const redirect = location.search ? location.search.split('=')[1] : '/'
+
   useEffect(() => {
     if (isAuthenticated) {
-      history.push("/");
+      history.push(redirect);
     }
 
     if (errors) {

@@ -1,14 +1,18 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { RootState } from "./../reducers";
-import { AddToCartAction, RemoveFromCartAction } from "../actions";
+import {
+  AddToCartAction,
+  RemoveFromCartAction,
+  SaveShippingInfoAction
+} from "../actions";
 
 import { ActionTypes } from "../actionTypes";
 
 export const addToCart = (id: string, quantity: number) => async (
   dispatch: Dispatch,
   getState: () => RootState
-): Promise<AddToCartAction> => {
+) => {
   const { data } = await axios.get(`/api/v1/product/${id}`);
 
   const action: AddToCartAction = {
@@ -23,19 +27,29 @@ export const addToCart = (id: string, quantity: number) => async (
     }
   };
 
+  dispatch(action);
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
-  return dispatch(action);
 };
 
 export const removeFromCart = (id: string) => (
   dispatch: Dispatch,
   getState: () => RootState
-): RemoveFromCartAction => {
+) => {
   const action: RemoveFromCartAction = {
     type: ActionTypes.REMOVE_FROM_CART,
     payload: id
   };
 
+  dispatch(action);
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
-  return dispatch(action);
+};
+
+export const saveShippingInfo = (data: string) => (dispatch: Dispatch) => {
+  const action: SaveShippingInfoAction = {
+    type: ActionTypes.SAVE_SHIPPING_INFO,
+    payload: data
+  };
+
+  dispatch(action);
+  localStorage.setItem("shippingInfo", JSON.stringify(data));
 };

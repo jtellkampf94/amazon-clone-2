@@ -45,5 +45,6 @@ export enum ActionTypes {
   NEW_PASSWORD_FAILURE = "new_password_failure",
 
   ADD_TO_CART = "add_to_cart",
-  REMOVE_FROM_CART = "remove_from_cart"
+  REMOVE_FROM_CART = "remove_from_cart",
+  SAVE_SHIPPING_INFO = "save_shipping_info"
 }

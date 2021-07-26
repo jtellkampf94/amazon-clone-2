@@ -12,10 +12,12 @@ export interface CartItem {
 
 interface CartState {
   cartItems: CartItem[];
+  shippingInfo: null | string;
 }
 
 const initialState: CartState = {
-  cartItems: []
+  cartItems: JSON.parse(localStorage.getItem("cartItems") || "[]"),
+  shippingInfo: null
 };
 
 const cartReducer = (
@@ -45,6 +47,11 @@ const cartReducer = (
       return {
         ...state,
         cartItems: state.cartItems.filter(i => i.product !== action.payload)
+      };
+    case ActionTypes.SAVE_SHIPPING_INFO:
+      return {
+        ...state,
+        shippingInfo: action.payload
       };
     default:
       return state;

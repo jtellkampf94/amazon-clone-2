@@ -11,4 +11,12 @@ export interface RemoveFromCartAction {
   payload: string;
 }
 
-export type CartAction = AddToCartAction | RemoveFromCartAction;
+export interface SaveShippingInfoAction {
+  type: ActionTypes.SAVE_SHIPPING_INFO;
+  payload: string;
+}
+
+export type CartAction =
+  | AddToCartAction
+  | RemoveFromCartAction
+  | SaveShippingInfoAction;

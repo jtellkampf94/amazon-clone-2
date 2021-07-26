@@ -109,11 +109,26 @@ const Cart: React.FC = () => {
                 <hr />
                 <p>
                   Subtotal:{" "}
-                  <span className="order-summary-values">3 (Units)</span>
+                  <span className="order-summary-values">
+                    {cartItems.reduce(
+                      (acc: number, item) => acc + Number(item.quantity),
+                      0
+                    )}{" "}
+                    (Units)
+                  </span>
                 </p>
                 <p>
                   Est. total:{" "}
-                  <span className="order-summary-values">$765.56</span>
+                  <span className="order-summary-values">
+                    $
+                    {cartItems
+                      .reduce(
+                        (acc: number, item) =>
+                          acc + Number(item.quantity) * item.price,
+                        0
+                      )
+                      .toFixed(2)}
+                  </span>
                 </p>
 
                 <hr />

@@ -10,6 +10,7 @@ import errorMiddleware from "./middlewares/errorMiddleware";
 import productRoutes from "./routes/productRoutes";
 import authRoutes from "./routes/authRoutes";
 import orderRoutes from "./routes/orderRoutes";
+import paymentRoutes from "./routes/paymentRoutes";
 import ErrorHandler from "./utils/errorHandler";
 
 dotenv.config();
@@ -31,6 +32,7 @@ cloudinary.v2.config({
 app.use("/api/v1", productRoutes);
 app.use("/api/v1", authRoutes);
 app.use("/api/v1", orderRoutes);
+app.use("/api/v1", paymentRoutes);
 app.use(errorMiddleware);
 
 // Handle uncaught exceptions

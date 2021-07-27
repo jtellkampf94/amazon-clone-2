@@ -1,7 +1,6 @@
 import { Fragment, useState, useEffect } from "react";
 import { countries } from "countries-list";
-import { useAlert } from "react-alert";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -40,7 +39,7 @@ const Shipping: React.FC<RouteComponentProps> = ({ history }) => {
       country
     });
 
-    history.push("/confirm");
+    history.push("/order/confirm");
   };
 
   return (

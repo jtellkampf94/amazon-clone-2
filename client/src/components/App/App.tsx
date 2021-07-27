@@ -14,6 +14,7 @@ import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import NewPassword from "../NewPassword/NewPassword";
 import Cart from "../Cart/Cart";
 import Shipping from "../Shipping/Shipping";
+import ConfirmOrder from "../ConfirmOrder/ConfirmOrder";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { useActions } from "../../hooks/useActions";
 
@@ -51,6 +52,11 @@ const App: React.FC = () => {
             component={UpdatePassword}
           />
           <ProtectedRoute exact path="/shipping" component={Shipping} />
+          <ProtectedRoute
+            exact
+            path="/order/confirm"
+            component={ConfirmOrder}
+          />
         </div>
         <Footer />
       </div>

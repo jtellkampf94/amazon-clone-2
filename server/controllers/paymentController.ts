@@ -22,3 +22,12 @@ export const processPayment = catchAsyncErrorsMiddleware(
     });
   }
 );
+
+// Send stripe publishable / api key payments => /api/v1/stripeapi
+export const getStripeAPI = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
+    res.status(200).json({
+      stripeApiKey: process.env.STRIPE_PUBLISHABLE_KEY
+    });
+  }
+);

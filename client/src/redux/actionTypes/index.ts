@@ -46,5 +46,10 @@ export enum ActionTypes {
 
   ADD_TO_CART = "add_to_cart",
   REMOVE_FROM_CART = "remove_from_cart",
-  SAVE_SHIPPING_INFO = "save_shipping_info"
+  SAVE_SHIPPING_INFO = "save_shipping_info",
+
+  CREATE_ORDER_REQUEST = "create_order_request",
+  CREATE_ORDER_SUCCESS = "create_order_success",
+  CREATE_ORDER_FAILURE = "create_order_failure",
+  CLEAR_ORDER_ERRORS = "clear_order_errors"
 }

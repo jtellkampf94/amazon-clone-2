@@ -8,8 +8,9 @@ import {
 } from "../actions";
 
 import { ActionTypes } from "../actionTypes";
+import { Order } from "../reducers/orderReducer";
 
-export const createOrder = (order: string) => async (
+export const createOrder = (order: Order) => async (
   dispatch: Dispatch
 ): Promise<CreateOrderSuccessAction | CreateOrderFailureAction> => {
   try {

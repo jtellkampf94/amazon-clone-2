@@ -12,6 +12,7 @@ import { useAlert } from "react-alert";
 
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { Order } from "../../redux/reducers/orderReducer";
 import MetaData from "../MetaData/MetaData";
 import CheckoutSteps from "../CheckoutSteps/CheckoutSteps";
 
@@ -33,10 +34,17 @@ const Payment: React.FC<RouteComponentProps> = ({ history }) => {
 
   const {
     auth: { user },
-    cart: { cartItems, shippingInfo }
+    cart: { cartItems, shippingInfo },
+    order: { errors }
   } = useTypedSelector(state => state);
+  const { createOrder, clearOrderErrors } = useActions();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (errors) {
+      alert.error(errors);
+      clearOrderErrors();
+    }
+  }, [errors]);
 
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo") || "");
 
@@ -46,6 +54,8 @@ const Payment: React.FC<RouteComponentProps> = ({ history }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!orderInfo) return;
+
     const button: HTMLButtonElement | null = document.querySelector("#pay_btn");
     if (button) button.disabled = true;
 
@@ -79,9 +89,22 @@ const Payment: React.FC<RouteComponentProps> = ({ history }) => {
           if (button) button.disabled = false;
         } else {
           // Payment processed or not
-          if (result.paymentIntent.status === "succeeded") {
-            // TODO: new order
+          if (result.paymentIntent.status === "succeeded" && shippingInfo) {
+            // new order
+            const order: Order = {
+              shippingInfo,
+              orderItems: cartItems,
+              itemsPrice: orderInfo.itemsPrice,
+              shippingPrice: orderInfo.shippingPrice,
+              taxPrice: orderInfo.taxPrice,
+              totalPrice: orderInfo.totalPrice,
+              paymentInfo: {
+                id: result.paymentIntent.id,
+                status: result.paymentIntent.status
+              }
+            };
 
+            createOrder(order);
             history.push("/success");
           } else {
             if (button) button.disabled = false;

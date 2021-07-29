@@ -4,7 +4,7 @@ import { ShippingInfo } from "./cartReducer";
 
 export interface Order {
   shippingInfo: ShippingInfo;
-  user: string;
+  user?: string;
   orderItems: {
     name: string;
     quantity: number;
@@ -16,15 +16,15 @@ export interface Order {
     id: string;
     status: string;
   };
-  paidAt: Date;
+  paidAt?: Date;
   itemsPrice: number;
   taxPrice: number;
   shippingPrice: number;
   totalPrice: number;
-  orderStatus: number;
-  deliveredAt: Date;
-  createdAt: Date;
-  updatedAt: Date;
+  orderStatus?: number;
+  deliveredAt?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 interface OrderState {

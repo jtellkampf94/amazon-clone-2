@@ -1,5 +1,5 @@
 import { Fragment, useEffect } from "react";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MDBDataTable } from "mdbreact";
 import { useAlert } from "react-alert";
 

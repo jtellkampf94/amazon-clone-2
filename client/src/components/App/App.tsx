@@ -21,6 +21,7 @@ import ConfirmOrder from "../ConfirmOrder/ConfirmOrder";
 import Payment from "../Payment/Payment";
 import OrderSuccess from "../OrderSuccess/OrderSuccess";
 import ListOrders from "../ListOrders/ListOrders";
+import OrderDetails from "../OrderDetails/OrderDetails";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { useActions } from "../../hooks/useActions";
 
@@ -78,6 +79,12 @@ const App: React.FC = () => {
           )}
           <ProtectedRoute exact path="/success" component={OrderSuccess} />
           <ProtectedRoute exact path="/orders" component={ListOrders} />
+          <ProtectedRoute
+            exact
+            path="/order/:id"
+            //@ts-ignore
+            component={OrderDetails}
+          />
         </div>
         <Footer />
       </div>

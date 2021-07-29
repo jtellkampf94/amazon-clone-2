@@ -5,7 +5,7 @@ import { ShippingInfo } from "./cartReducer";
 export interface Order {
   _id?: string;
   shippingInfo: ShippingInfo;
-  user?: string;
+  user?: { _id: string; name: string };
   orderItems: {
     name: string;
     quantity: number;

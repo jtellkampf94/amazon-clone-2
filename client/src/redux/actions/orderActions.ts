@@ -29,6 +29,20 @@ export interface MyOrdersFailureAction {
   payload: string;
 }
 
+export interface GetOrderRequestAction {
+  type: ActionTypes.GET_ORDER_REQUEST;
+}
+
+export interface GetOrderSuccessAction {
+  type: ActionTypes.GET_ORDER_SUCCESS;
+  payload: Order;
+}
+
+export interface GetOrderFailureAction {
+  type: ActionTypes.GET_ORDER_FAILURE;
+  payload: string;
+}
+
 export interface ClearOrderErrorsAction {
   type: ActionTypes.CLEAR_ORDER_ERRORS;
 }
@@ -40,4 +54,7 @@ export type OrderAction =
   | MyOrdersRequestAction
   | MyOrdersSuccessAction
   | MyOrdersFailureAction
+  | GetOrderRequestAction
+  | GetOrderSuccessAction
+  | GetOrderFailureAction
   | ClearOrderErrorsAction;

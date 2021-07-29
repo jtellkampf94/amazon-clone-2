@@ -33,13 +33,15 @@ interface OrderState {
   loading: boolean;
   errors: null | string;
   orders: Order[] | null;
+  newOrder: Order | null;
 }
 
 const initialState: OrderState = {
   order: null,
   loading: false,
   errors: null,
-  orders: null
+  orders: null,
+  newOrder: null
 };
 
 const orderReducer = (
@@ -49,11 +51,18 @@ const orderReducer = (
   switch (action.type) {
     case ActionTypes.CREATE_ORDER_REQUEST:
     case ActionTypes.MY_ORDERS_REQUEST:
+    case ActionTypes.GET_ORDER_REQUEST:
       return {
         ...state,
         loading: true
       };
     case ActionTypes.CREATE_ORDER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        newOrder: action.payload
+      };
+    case ActionTypes.GET_ORDER_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -65,6 +74,7 @@ const orderReducer = (
         loading: false,
         orders: action.payload
       };
+    case ActionTypes.MY_ORDERS_FAILURE:
     case ActionTypes.MY_ORDERS_FAILURE:
     case ActionTypes.CREATE_ORDER_FAILURE:
       return {

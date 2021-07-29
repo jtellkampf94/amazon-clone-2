@@ -9,6 +9,11 @@ export enum ActionTypes {
   GET_PRODUCT_FAILURE = "get_product_failure",
   CLEAR_PRODUCT_ERRORS = "clear_product_errors",
 
+  CREATE_REVIEW_REQUEST = "create_review_request",
+  CREATE_REVIEW_SUCCESS = "create_review_success",
+  CREATE_REVIEW_FAILURE = "create_review_failure",
+  REVIEW_RESET = "review_reset",
+
   LOGIN_REQUEST = "login_request",
   LOGIN_SUCCESS = "login_success",
   LOGIN_FAILURE = "login_failure",

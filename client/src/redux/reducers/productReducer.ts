@@ -6,12 +6,14 @@ interface ProductState {
   product: Product | null;
   loading: boolean;
   errors: string | null;
+  success: boolean;
 }
 
 const initialState: ProductState = {
   product: null,
   loading: false,
-  errors: null
+  errors: null,
+  success: false
 };
 
 const productReducer = (
@@ -20,6 +22,7 @@ const productReducer = (
 ): ProductState => {
   switch (action.type) {
     case ActionTypes.GET_PRODUCT_REQUEST:
+    case ActionTypes.CREATE_REVIEW_REQUEST:
       return {
         ...state,
         loading: true
@@ -30,11 +33,24 @@ const productReducer = (
         loading: false,
         product: action.payload
       };
+    case ActionTypes.CREATE_REVIEW_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: action.payload
+      };
+    case ActionTypes.CREATE_REVIEW_FAILURE:
     case ActionTypes.GET_PRODUCT_FAILURE:
       return {
         ...state,
         loading: false,
         errors: action.payload
+      };
+    case ActionTypes.REVIEW_RESET:
+      return {
+        ...state,
+        loading: false,
+        success: false
       };
     case ActionTypes.CLEAR_PRODUCT_ERRORS:
       return {

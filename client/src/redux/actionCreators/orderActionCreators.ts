@@ -40,7 +40,7 @@ export const createOrder = (order: Order) => async (
   }
 };
 
-export const getOrder = () => async (
+export const getOrders = () => async (
   dispatch: Dispatch
 ): Promise<MyOrdersSuccessAction | MyOrdersFailureAction> => {
   try {

@@ -3,6 +3,7 @@ import { ActionTypes } from "../actionTypes";
 import { ShippingInfo } from "./cartReducer";
 
 export interface Order {
+  _id?: string;
   shippingInfo: ShippingInfo;
   user?: string;
   orderItems: {

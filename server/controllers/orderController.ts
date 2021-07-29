@@ -62,7 +62,7 @@ export const getSingleOrder = catchAsyncErrorsMiddleware(
 export const getOrders = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {
     //@ts-ignore
-    const orders = await Order.find(req.user.id);
+    const orders = await Order.find({ user: req.user._id });
 
     res.status(200).json({
       success: true,

@@ -20,6 +20,7 @@ import Shipping from "../Shipping/Shipping";
 import ConfirmOrder from "../ConfirmOrder/ConfirmOrder";
 import Payment from "../Payment/Payment";
 import OrderSuccess from "../OrderSuccess/OrderSuccess";
+import ListOrders from "../ListOrders/ListOrders";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { useActions } from "../../hooks/useActions";
 
@@ -70,12 +71,13 @@ const App: React.FC = () => {
             path="/order/confirm"
             component={ConfirmOrder}
           />
-          <ProtectedRoute exact path="/success" component={OrderSuccess} />
           {stripeApiKey && (
             <Elements stripe={loadStripe(stripeApiKey)}>
               <ProtectedRoute exact path="/payment" component={Payment} />
             </Elements>
           )}
+          <ProtectedRoute exact path="/success" component={OrderSuccess} />
+          <ProtectedRoute exact path="/orders" component={ListOrders} />
         </div>
         <Footer />
       </div>

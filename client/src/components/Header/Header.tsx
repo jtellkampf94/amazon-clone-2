@@ -69,15 +69,14 @@ const Header: React.FC = () => {
             </Link>
 
             <div className="dropdown-menu" aria-labelledby="dropDownMenuButton">
-              {user && user.role !== "admin" ? (
-                <Link className="dropdown-item" to="/orders">
-                  Orders
-                </Link>
-              ) : (
+              {user && user.role === "admin" && (
                 <Link className="dropdown-item" to="/dashboard">
                   Dashboard
                 </Link>
               )}
+              <Link className="dropdown-item" to="/orders">
+                Orders
+              </Link>
               <Link className="dropdown-item" to="/profile">
                 Profile
               </Link>

@@ -51,5 +51,9 @@ export enum ActionTypes {
   CREATE_ORDER_REQUEST = "create_order_request",
   CREATE_ORDER_SUCCESS = "create_order_success",
   CREATE_ORDER_FAILURE = "create_order_failure",
-  CLEAR_ORDER_ERRORS = "clear_order_errors"
+  CLEAR_ORDER_ERRORS = "clear_order_errors",
+
+  MY_ORDERS_REQUEST = "my_orders_request",
+  MY_ORDERS_SUCCESS = "my_orders_success",
+  MY_ORDERS_FAILURE = "my_orders_failure"
 }

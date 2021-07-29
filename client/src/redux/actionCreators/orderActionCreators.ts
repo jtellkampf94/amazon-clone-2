@@ -4,7 +4,10 @@ import {
   CreateOrderRequestAction,
   CreateOrderSuccessAction,
   CreateOrderFailureAction,
-  ClearOrderErrorsAction
+  ClearOrderErrorsAction,
+  MyOrdersRequestAction,
+  MyOrdersSuccessAction,
+  MyOrdersFailureAction
 } from "../actions";
 
 import { ActionTypes } from "../actionTypes";
@@ -31,6 +34,31 @@ export const createOrder = (order: Order) => async (
   } catch (error) {
     const action: CreateOrderFailureAction = {
       type: ActionTypes.CREATE_ORDER_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+export const getOrder = () => async (
+  dispatch: Dispatch
+): Promise<MyOrdersSuccessAction | MyOrdersFailureAction> => {
+  try {
+    const myOrdersRequestAction: MyOrdersRequestAction = {
+      type: ActionTypes.MY_ORDERS_REQUEST
+    };
+    dispatch(myOrdersRequestAction);
+
+    const { data } = await axios.get(`/api/v1/orders`);
+    const action: MyOrdersSuccessAction = {
+      type: ActionTypes.MY_ORDERS_SUCCESS,
+      payload: data.orders
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: MyOrdersFailureAction = {
+      type: ActionTypes.MY_ORDERS_FAILURE,
       payload: error.response.data.message
     };
     return dispatch(action);

@@ -31,12 +31,14 @@ interface OrderState {
   order: Order | null;
   loading: boolean;
   errors: null | string;
+  orders: Order[] | null;
 }
 
 const initialState: OrderState = {
   order: null,
   loading: false,
-  errors: null
+  errors: null,
+  orders: null
 };
 
 const orderReducer = (
@@ -45,6 +47,7 @@ const orderReducer = (
 ): OrderState => {
   switch (action.type) {
     case ActionTypes.CREATE_ORDER_REQUEST:
+    case ActionTypes.MY_ORDERS_REQUEST:
       return {
         ...state,
         loading: true
@@ -55,6 +58,13 @@ const orderReducer = (
         loading: false,
         order: action.payload
       };
+    case ActionTypes.MY_ORDERS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        orders: action.payload
+      };
+    case ActionTypes.MY_ORDERS_FAILURE:
     case ActionTypes.CREATE_ORDER_FAILURE:
       return {
         ...state,
@@ -66,6 +76,7 @@ const orderReducer = (
         ...state,
         errors: null
       };
+
     default:
       return state;
   }

@@ -40,6 +40,8 @@ export const getProduct = (id: string) => async (
 
 interface Review {
   rating: number;
+  comment: string;
+  productId: string;
 }
 
 export const createReview = (review: Review) => async (
@@ -74,6 +76,13 @@ export const clearProductErrors = () => (
 ): ClearProductErrorsAction => {
   const action: ClearProductErrorsAction = {
     type: ActionTypes.CLEAR_PRODUCT_ERRORS
+  };
+  return dispatch(action);
+};
+
+export const reviewReset = () => (dispatch: Dispatch): ReviewResetAction => {
+  const action: ReviewResetAction = {
+    type: ActionTypes.REVIEW_RESET
   };
   return dispatch(action);
 };

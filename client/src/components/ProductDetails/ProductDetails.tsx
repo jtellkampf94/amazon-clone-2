@@ -13,9 +13,20 @@ interface Params {
 }
 
 const ProductDetails: React.FC<RouteComponentProps<Params>> = ({ match }) => {
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const { product, loading, errors } = useTypedSelector(state => state.product);
-  const { getProduct, clearProductErrors, addToCart } = useActions();
+  const {
+    product: { product, loading, errors, success },
+    auth: { user }
+  } = useTypedSelector(state => state);
+  const {
+    getProduct,
+    reviewReset,
+    clearProductErrors,
+    addToCart,
+    createReview
+  } = useActions();
   const alert = useAlert();
 
   useEffect(() => {
@@ -25,7 +36,12 @@ const ProductDetails: React.FC<RouteComponentProps<Params>> = ({ match }) => {
       alert.error(errors);
       clearProductErrors();
     }
-  }, [alert, errors, match.params.id]);
+
+    if (success) {
+      alert.success("Review successfully submitted");
+      reviewReset();
+    }
+  }, [alert, errors, match.params.id, success]);
 
   const increaseQty = () => {
     const count: HTMLInputElement | null = document.querySelector(".count");
@@ -52,6 +68,61 @@ const ProductDetails: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   const addItemTocart = () => {
     addToCart(match.params.id, quantity);
     alert.success("Item added to cart");
+  };
+
+  function setUserRating() {
+    const stars: NodeListOf<HTMLLIElement> | null = document.querySelectorAll(
+      ".star"
+    );
+
+    if (stars) {
+      stars.forEach(function(star, index: number) {
+        //@ts-ignore
+        star.starValue = index + 1;
+
+        const eventTypes: Array<"click" | "mouseover" | "mouseout"> = [
+          "click",
+          "mouseover",
+          "mouseout"
+        ];
+
+        eventTypes.forEach(function(e) {
+          star.addEventListener(e, function(e: MouseEvent) {
+            stars.forEach((star, index: number) => {
+              if (e.type === "click") {
+                //@ts-ignore
+                if (index < this.starValue) {
+                  star.classList.add("orange");
+                  //@ts-ignore
+                  setRating(this.starValue);
+                } else {
+                  star.classList.remove("orange");
+                }
+              }
+
+              if (e.type === "mouseover") {
+                //@ts-ignore
+                if (index < this.starValue) {
+                  star.classList.add("yellow");
+                } else {
+                  star.classList.remove("yellow");
+                }
+              }
+
+              if (e.type === "mouseout") {
+                star.classList.remove("yellow");
+              }
+            });
+          });
+        });
+      });
+    }
+  }
+
+  const reviewHandler = () => {
+    createReview({ rating, comment, productId: match.params.id });
+    setComment("");
+    setRating(0);
   };
 
   return (
@@ -144,15 +215,22 @@ const ProductDetails: React.FC<RouteComponentProps<Params>> = ({ match }) => {
                 Sold by: <strong>{product?.seller}</strong>
               </p>
 
-              <button
-                id="review_btn"
-                type="button"
-                className="btn btn-primary mt-4"
-                data-toggle="modal"
-                data-target="#ratingModal"
-              >
-                Submit Your Review
-              </button>
+              {user ? (
+                <button
+                  id="review_btn"
+                  type="button"
+                  className="btn btn-primary mt-4"
+                  data-toggle="modal"
+                  data-target="#ratingModal"
+                  onClick={setUserRating}
+                >
+                  Submit Your Review
+                </button>
+              ) : (
+                <div className="alert alert-danger mt-5">
+                  Login to post your review.
+                </div>
+              )}
 
               <div className="row mt-2 mb-5">
                 <div className="rating w-50">
@@ -202,12 +280,15 @@ const ProductDetails: React.FC<RouteComponentProps<Params>> = ({ match }) => {
                             name="review"
                             id="review"
                             className="form-control mt-3"
+                            value={comment}
+                            onChange={e => setComment(e.target.value)}
                           ></textarea>
 
                           <button
                             className="btn my-3 float-right review-btn px-4 text-white"
                             data-dismiss="modal"
                             aria-label="Close"
+                            onClick={reviewHandler}
                           >
                             Submit
                           </button>

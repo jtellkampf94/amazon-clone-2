@@ -4,6 +4,7 @@ import { RouteComponentProps } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
 
 import Loader from "../Loader/Loader";
+import ListReview from "../ListReview/ListReview";
 import MetaData from "../MetaData/MetaData";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -300,6 +301,10 @@ const ProductDetails: React.FC<RouteComponentProps<Params>> = ({ match }) => {
               </div>
             </div>
           </div>
+
+          {product?.reviews && product.reviews?.length > 0 && (
+            <ListReview reviews={product.reviews} />
+          )}
         </Fragment>
       )}
     </Fragment>

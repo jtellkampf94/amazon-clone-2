@@ -28,11 +28,12 @@ export interface Product {
   stock: number;
   numberOfReviews: number;
   reviews: {
+    _id: string;
     user: string;
     name: string;
     rating: number;
     comment: string;
-  };
+  }[];
   user: string;
   createdAt: Date;
   updatedAt: Date;

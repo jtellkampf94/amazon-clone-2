@@ -4,7 +4,11 @@ import {
   ClearProductErrorsAction,
   GetProductFailureAction,
   GetProductRequestAction,
-  GetProductSuccessAction
+  GetProductSuccessAction,
+  CreateReviewRequestAction,
+  CreateReviewSuccessAction,
+  CreateReviewFailureAction,
+  ReviewResetAction
 } from "../actions";
 
 import { ActionTypes } from "../actionTypes";
@@ -28,6 +32,37 @@ export const getProduct = (id: string) => async (
   } catch (error) {
     const action: GetProductFailureAction = {
       type: ActionTypes.GET_PRODUCT_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+interface Review {
+  rating: number;
+}
+
+export const createReview = (review: Review) => async (
+  dispatch: Dispatch
+): Promise<CreateReviewSuccessAction | CreateReviewFailureAction> => {
+  try {
+    const createReviewRequestAction: CreateReviewRequestAction = {
+      type: ActionTypes.CREATE_REVIEW_REQUEST
+    };
+    dispatch(createReviewRequestAction);
+
+    const { data } = await axios.put(`/api/v1/review`, review, {
+      headers: { "Content-Type": "application/json" }
+    });
+    const action: CreateReviewSuccessAction = {
+      type: ActionTypes.CREATE_REVIEW_SUCCESS,
+      payload: data.success
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: CreateReviewFailureAction = {
+      type: ActionTypes.CREATE_REVIEW_FAILURE,
       payload: error.response.data.message
     };
     return dispatch(action);

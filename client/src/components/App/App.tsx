@@ -22,6 +22,7 @@ import Payment from "../Payment/Payment";
 import OrderSuccess from "../OrderSuccess/OrderSuccess";
 import ListOrders from "../ListOrders/ListOrders";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import Dashboard from "../Dashboard/Dashboard";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { useActions } from "../../hooks/useActions";
 
@@ -86,6 +87,12 @@ const App: React.FC = () => {
             component={OrderDetails}
           />
         </div>
+          <ProtectedRoute
+            exact
+            path="/dashboard"
+            isAdmin={true}
+            component={Dashboard}
+          />
         <Footer />
       </div>
     </Router>

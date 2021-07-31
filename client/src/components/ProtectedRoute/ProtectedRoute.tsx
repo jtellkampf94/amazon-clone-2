@@ -10,10 +10,12 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 interface ProtectedRouteProps extends RouteProps {
   component: React.ComponentType<RouteComponentProps>;
+  isAdmin?: boolean;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   component: Component,
+  isAdmin,
   ...rest
 }) => {
   const { isAuthenticated, loading, user } = useTypedSelector(
@@ -28,6 +30,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
           render={props => {
             if (isAuthenticated === false) {
               return <Redirect to="/login" />;
+            }
+
+            if (isAdmin === true && user?.role !== 'admin') {
+              return <Redirect to="/" />;
             }
 
             return <Component {...props} />;

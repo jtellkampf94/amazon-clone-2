@@ -7,23 +7,23 @@ const Sidebar: React.FC = () => {
         <ul className="list-unstyled components">
           <li>
             <Link to="/dashboard">
-              <i className="fa fa-tachometer-alt"></i> Dashboard
+              <i className="fa fa-tachometer"></i> Dashboard
             </Link>
           </li>
 
           <li>
-            <Link
-              to="#productSubmenu"
+            <a
+              href="#productSubmenu"
               data-toggle="collapse"
               aria-expanded="false"
               className="dropdown-toggle"
             >
               <i className="fab fa-product-hunt"></i> Products
-            </Link>
+            </a>
             <ul className="collapse list-unstyled" id="productSubmenu">
               <li>
                 <Link to="/admin/products">
-                  <i className="fa fa-clipboard-list"></i> All
+                  <i className="fa fa-clipboard"></i> All
                 </Link>
               </li>
 

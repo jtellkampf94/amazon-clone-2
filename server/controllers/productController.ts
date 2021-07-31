@@ -45,6 +45,18 @@ export const getProducts = catchAsyncErrorsMiddleware(
   }
 );
 
+// Get all products (Admin) => /api/v1/admin/products
+export const getAdminProducts = catchAsyncErrorsMiddleware(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const products = await Product.find();
+
+    res.status(200).json({
+      success: true,
+      products
+    });
+  }
+);
+
 // Get single product => /api/v1/product/:id
 export const getSingleProduct = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {

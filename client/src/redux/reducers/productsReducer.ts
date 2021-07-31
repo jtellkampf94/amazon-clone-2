@@ -63,6 +63,7 @@ const productsReducer = (
 ): ProductsState => {
   switch (action.type) {
     case ActionTypes.GET_ALL_PRODUCTS_REQUEST:
+    case ActionTypes.GET_ADMIN_PRODUCTS_REQUEST:
       return {
         ...state,
         loading: true,
@@ -77,7 +78,14 @@ const productsReducer = (
         productsCount: action.payload.productsCount,
         filteredProductsCount: action.payload.filteredProductsCount
       };
+    case ActionTypes.GET_ADMIN_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        products: action.payload.products
+      };
     case ActionTypes.GET_ALL_PRODUCTS_FAILURE:
+    case ActionTypes.GET_ADMIN_PRODUCTS_FAILURE:
       return {
         ...state,
         loading: false,

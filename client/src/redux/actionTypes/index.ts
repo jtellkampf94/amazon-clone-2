@@ -4,6 +4,10 @@ export enum ActionTypes {
   GET_ALL_PRODUCTS_FAILURE = "get_all_products_failure",
   CLEAR_PRODUCTS_ERRORS = "clear_products_errors",
 
+  GET_ADMIN_PRODUCTS_REQUEST = "get_admin_products_request",
+  GET_ADMIN_PRODUCTS_SUCCESS = "get_admin_products_success",
+  GET_ADMIN_PRODUCTS_FAILURE = "get_admin_products_failure",
+
   GET_PRODUCT_REQUEST = "get_product_request",
   GET_PRODUCT_SUCCESS = "get_product_success",
   GET_PRODUCT_FAILURE = "get_product_failure",

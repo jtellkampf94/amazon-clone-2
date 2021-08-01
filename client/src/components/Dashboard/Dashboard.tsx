@@ -4,8 +4,24 @@ import { Link } from "react-router-dom";
 import MetaData from "../MetaData/MetaData";
 import Loader from "../Loader/Loader";
 import Sidebar from "../Sidebar/Sidebar";
+import { useActions } from "../../hooks/useActions";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 const Dashboard: React.FC = () => {
+  const { getAdminProducts } = useActions();
+  const { products } = useTypedSelector(state => state.products);
+
+  useEffect(() => {
+    getAdminProducts();
+  }, []);
+
+  let outOfStock = 0;
+  products?.forEach(product => {
+    if (product.stock === 0) {
+      outOfStock += 1;
+    }
+  });
+
   return (
     <Fragment>
       <div className="row">
@@ -34,7 +50,7 @@ const Dashboard: React.FC = () => {
                 <div className="card-body">
                   <div className="text-center card-font-size">
                     Products
-                    <br /> <b>56</b>
+                    <br /> <b>{products?.length}</b>
                   </div>
                 </div>
                 <Link
@@ -94,7 +110,7 @@ const Dashboard: React.FC = () => {
                 <div className="card-body">
                   <div className="text-center card-font-size">
                     Out of Stock
-                    <br /> <b>4</b>
+                    <br /> <b>{outOfStock}</b>
                   </div>
                 </div>
               </div>

@@ -4,12 +4,14 @@ import { Product } from "./productsReducer";
 
 interface ProductState {
   product: Product | null;
+  newProduct: Product | null;
   loading: boolean;
   errors: string | null;
   success: boolean;
 }
 
 const initialState: ProductState = {
+  newProduct: null,
   product: null,
   loading: false,
   errors: null,
@@ -23,6 +25,7 @@ const productReducer = (
   switch (action.type) {
     case ActionTypes.GET_PRODUCT_REQUEST:
     case ActionTypes.CREATE_REVIEW_REQUEST:
+    case ActionTypes.CREATE_PRODUCT_REQUEST:
       return {
         ...state,
         loading: true
@@ -33,6 +36,12 @@ const productReducer = (
         loading: false,
         product: action.payload
       };
+    case ActionTypes.CREATE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        newProduct: action.payload
+      };
     case ActionTypes.CREATE_REVIEW_SUCCESS:
       return {
         ...state,
@@ -41,12 +50,14 @@ const productReducer = (
       };
     case ActionTypes.CREATE_REVIEW_FAILURE:
     case ActionTypes.GET_PRODUCT_FAILURE:
+    case ActionTypes.CREATE_PRODUCT_FAILURE:
       return {
         ...state,
         loading: false,
         errors: action.payload
       };
     case ActionTypes.REVIEW_RESET:
+    case ActionTypes.PRODUCT_RESET:
       return {
         ...state,
         loading: false,

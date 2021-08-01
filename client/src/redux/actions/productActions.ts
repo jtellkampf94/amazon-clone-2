@@ -33,6 +33,24 @@ export interface ReviewResetAction {
   type: ActionTypes.REVIEW_RESET;
 }
 
+export interface CreateProductRequestAction {
+  type: ActionTypes.CREATE_PRODUCT_REQUEST;
+}
+
+export interface CreateProductSuccessAction {
+  type: ActionTypes.CREATE_PRODUCT_SUCCESS;
+  payload: Product;
+}
+
+export interface CreateProductFailureAction {
+  type: ActionTypes.CREATE_PRODUCT_FAILURE;
+  payload: string;
+}
+
+export interface ProductResetAction {
+  type: ActionTypes.PRODUCT_RESET;
+}
+
 export interface ClearProductErrorsAction {
   type: ActionTypes.CLEAR_PRODUCT_ERRORS;
 }
@@ -45,4 +63,8 @@ export type ProductAction =
   | CreateReviewRequestAction
   | CreateReviewSuccessAction
   | ReviewResetAction
+  | CreateProductFailureAction
+  | CreateProductRequestAction
+  | CreateProductSuccessAction
+  | ProductResetAction
   | ClearProductErrorsAction;

@@ -8,6 +8,11 @@ export enum ActionTypes {
   GET_ADMIN_PRODUCTS_SUCCESS = "get_admin_products_success",
   GET_ADMIN_PRODUCTS_FAILURE = "get_admin_products_failure",
 
+  CREATE_PRODUCT_REQUEST = "create_product_request",
+  CREATE_PRODUCT_SUCCESS = "create_product_success",
+  CREATE_PRODUCT_FAILURE = "create_product_failure",
+  PRODUCT_RESET = "product_reset",
+
   GET_PRODUCT_REQUEST = "get_product_request",
   GET_PRODUCT_SUCCESS = "get_product_success",
   GET_PRODUCT_FAILURE = "get_product_failure",

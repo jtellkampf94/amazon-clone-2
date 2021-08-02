@@ -8,6 +8,10 @@ import {
   CreateReviewRequestAction,
   CreateReviewSuccessAction,
   CreateReviewFailureAction,
+  CreateProductRequestAction,
+  CreateProductSuccessAction,
+  CreateProductFailureAction,
+  ProductResetAction,
   ReviewResetAction
 } from "../actions";
 
@@ -65,6 +69,35 @@ export const createReview = (review: Review) => async (
   } catch (error) {
     const action: CreateReviewFailureAction = {
       type: ActionTypes.CREATE_REVIEW_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+interface ProductData {}
+
+export const createProduct = (productData: ProductData) => async (
+  dispatch: Dispatch
+): Promise<CreateProductSuccessAction | CreateProductFailureAction> => {
+  try {
+    const createProductRequestAction: CreateProductRequestAction = {
+      type: ActionTypes.CREATE_PRODUCT_REQUEST
+    };
+    dispatch(createProductRequestAction);
+
+    const { data } = await axios.post(`/api/v1/product/new`, productData, {
+      headers: { "Content-Type": "application/json" }
+    });
+    const action: CreateProductSuccessAction = {
+      type: ActionTypes.CREATE_PRODUCT_SUCCESS,
+      payload: data.success
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: CreateProductFailureAction = {
+      type: ActionTypes.CREATE_PRODUCT_FAILURE,
       payload: error.response.data.message
     };
     return dispatch(action);

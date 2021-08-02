@@ -5,7 +5,7 @@ import ErrorHandler from "../utils/errorHandler";
 import catchAsyncErrorsMiddleware from "../middlewares/catchAsyncErrorsMiddleware";
 import APIFeatures from "../utils/apiFeatures";
 
-// Create new product => /api/v1/admin/products/new
+// Create new product => /api/v1/admin/product/new
 export const createProduct = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {
     //@ts-ignore

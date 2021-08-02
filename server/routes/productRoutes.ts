@@ -24,7 +24,7 @@ router
 router.route("/product/:id").get(getSingleProduct);
 
 router
-  .route("/admin/products/new")
+  .route("/admin/product/new")
   .post(isAuthenticatedUser, authorizedRoles("admin"), createProduct);
 
 router

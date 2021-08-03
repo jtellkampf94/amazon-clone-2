@@ -40,7 +40,8 @@ const productReducer = (
       return {
         ...state,
         loading: false,
-        newProduct: action.payload
+        newProduct: action.payload.product,
+        success: action.payload.success
       };
     case ActionTypes.CREATE_REVIEW_SUCCESS:
       return {

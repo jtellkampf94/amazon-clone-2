@@ -39,7 +39,7 @@ export interface CreateProductRequestAction {
 
 export interface CreateProductSuccessAction {
   type: ActionTypes.CREATE_PRODUCT_SUCCESS;
-  payload: Product;
+  payload: { product: Product; success: boolean };
 }
 
 export interface CreateProductFailureAction {

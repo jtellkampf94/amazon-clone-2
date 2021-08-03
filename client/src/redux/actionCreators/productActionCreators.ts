@@ -75,7 +75,15 @@ export const createReview = (review: Review) => async (
   }
 };
 
-interface ProductData {}
+export interface ProductData {
+  name: string;
+  price: number;
+  description: string;
+  category: string;
+  stock: number;
+  seller: string;
+  images: any[];
+}
 
 export const createProduct = (productData: ProductData) => async (
   dispatch: Dispatch
@@ -91,7 +99,7 @@ export const createProduct = (productData: ProductData) => async (
     });
     const action: CreateProductSuccessAction = {
       type: ActionTypes.CREATE_PRODUCT_SUCCESS,
-      payload: data.success
+      payload: data
     };
 
     return dispatch(action);
@@ -116,6 +124,13 @@ export const clearProductErrors = () => (
 export const reviewReset = () => (dispatch: Dispatch): ReviewResetAction => {
   const action: ReviewResetAction = {
     type: ActionTypes.REVIEW_RESET
+  };
+  return dispatch(action);
+};
+
+export const productReset = () => (dispatch: Dispatch): ProductResetAction => {
+  const action: ProductResetAction = {
+    type: ActionTypes.PRODUCT_RESET
   };
   return dispatch(action);
 };

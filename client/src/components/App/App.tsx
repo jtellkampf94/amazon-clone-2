@@ -24,6 +24,7 @@ import ListOrders from "../ListOrders/ListOrders";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Dashboard from "../Dashboard/Dashboard";
 import ProductsList from "../ProductsList/ProductsList";
+import NewProduct from "../NewProduct/NewProduct";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { useActions } from "../../hooks/useActions";
 
@@ -99,6 +100,12 @@ const App: React.FC = () => {
           path="/admin/products"
           isAdmin={true}
           component={ProductsList}
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/product"
+          isAdmin={true}
+          component={NewProduct}
         />
         <Footer />
       </div>

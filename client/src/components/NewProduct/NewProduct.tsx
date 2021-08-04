@@ -20,6 +20,7 @@ const NewProduct: React.FC<RouteComponentProps> = ({ history }) => {
   const [description, setDescription] = useState("");
   const [stock, setStock] = useState(0);
   const [seller, setSeller] = useState("");
+  const [category, setCategory] = useState("");
   const [images, setImages] = useState<Array<string | ArrayBuffer | null>>([]);
   const [imagesPreview, setImagesPreview] = useState<
     Array<string | ArrayBuffer | null>
@@ -84,7 +85,7 @@ const NewProduct: React.FC<RouteComponentProps> = ({ history }) => {
       name,
       price,
       description,
-      category: "",
+      category,
       stock,
       seller,
       images: []
@@ -145,10 +146,17 @@ const NewProduct: React.FC<RouteComponentProps> = ({ history }) => {
 
               <div className="form-group">
                 <label htmlFor="category_field">Category</label>
-                <select className="form-control" id="category_field">
-                  <option>Electronics</option>
-                  <option>Home</option>
-                  <option>Others</option>
+                <select
+                  className="form-control"
+                  id="category_field"
+                  value={category}
+                  onChange={e => setCategory(e.target.value)}
+                >
+                  {categories.map(category => (
+                    <option value={category} key={category}>
+                      {category}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className="form-group">
@@ -182,18 +190,35 @@ const NewProduct: React.FC<RouteComponentProps> = ({ history }) => {
                     name="product_images"
                     className="custom-file-input"
                     id="customFile"
+                    onChange={handleChange}
                     multiple
                   />
                   <label className="custom-file-label" htmlFor="customFile">
                     Choose Images
                   </label>
                 </div>
+
+                {imagesPreview.map(
+                  image =>
+                    image &&
+                    typeof image === "string" && (
+                      <img
+                        key={image}
+                        src={image}
+                        alt="Image Preview"
+                        className="mt-3 mr-2"
+                        width="55"
+                        height="52"
+                      />
+                    )
+                )}
               </div>
 
               <button
                 id="login_button"
                 type="submit"
                 className="btn btn-block py-3"
+                disabled={loading}
               >
                 CREATE
               </button>

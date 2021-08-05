@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import cloudinary from "cloudinary";
 
 import Product from "../models/Product";
 import ErrorHandler from "../utils/errorHandler";
@@ -8,6 +9,27 @@ import APIFeatures from "../utils/apiFeatures";
 // Create new product => /api/v1/admin/product/new
 export const createProduct = catchAsyncErrorsMiddleware(
   async (req: Request, res: Response, next: NextFunction) => {
+    let images: string[] = [];
+    if (typeof req.body.images === "string") {
+      images.push(req.body.images);
+    } else {
+      images = req.body.images;
+    }
+
+    let imagesLinks: { publicId: string; url: string }[] = [];
+
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(images[i], {
+        folder: "products"
+      });
+
+      imagesLinks.push({
+        publicId: result.public_id,
+        url: result.secure_url
+      });
+    }
+
+    req.body.images = imagesLinks;
     //@ts-ignore
     req.body.user = req.user.id;
     const product = await Product.create(req.body);

@@ -94,9 +94,13 @@ export const createProduct = (productData: ProductData) => async (
     };
     dispatch(createProductRequestAction);
 
-    const { data } = await axios.post(`/api/v1/product/new`, productData, {
-      headers: { "Content-Type": "application/json" }
-    });
+    const { data } = await axios.post(
+      `/api/v1/admin/product/new`,
+      productData,
+      {
+        headers: { "Content-Type": "application/json" }
+      }
+    );
     const action: CreateProductSuccessAction = {
       type: ActionTypes.CREATE_PRODUCT_SUCCESS,
       payload: data

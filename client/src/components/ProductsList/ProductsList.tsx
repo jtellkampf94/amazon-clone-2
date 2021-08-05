@@ -87,7 +87,7 @@ const ProductsList: React.FC<RouteComponentProps> = ({ history }) => {
               <i className="fa fa-pencil"></i>
             </Link>
             <button className="btn btn-danger py-1 px-2 ml-2">
-              <i className="fa fa-reash"></i>
+              <i className="fa fa-trash"></i>
             </button>
           </Fragment>
         )

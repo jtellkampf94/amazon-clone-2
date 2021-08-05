@@ -27,11 +27,13 @@ import ProductsList from "../ProductsList/ProductsList";
 import NewProduct from "../NewProduct/NewProduct";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { useActions } from "../../hooks/useActions";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 import "./App.css";
 
 const App: React.FC = () => {
   const { loadUser } = useActions();
+  const { loading, user } = useTypedSelector(state => state.auth);
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   useEffect(() => {
@@ -107,7 +109,8 @@ const App: React.FC = () => {
           isAdmin={true}
           component={NewProduct}
         />
-        <Footer />
+
+        {!loading && user && user.role !== "admin" && <Footer />}
       </div>
     </Router>
   );

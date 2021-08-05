@@ -18,9 +18,7 @@ import {
 } from "../middlewares/authMiddleware";
 
 router.route("/products").get(getProducts);
-router
-  .route("/admin/products")
-  .get(isAuthenticatedUser, authorizedRoles("admin"), getAdminProducts);
+router.route("/admin/products").get(getAdminProducts);
 router.route("/product/:id").get(getSingleProduct);
 
 router

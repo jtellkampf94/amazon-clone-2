@@ -56,8 +56,7 @@ export const getProducts = (
   }
 };
 
-export const getAdminProducts = (
-) => async (
+export const getAdminProducts = () => async (
   dispatch: Dispatch
 ): Promise<GetAdminProductsSuccessAction | GetAdminProductsFailureAction> => {
   try {
@@ -66,7 +65,7 @@ export const getAdminProducts = (
     };
     dispatch(getAdminProductsRequestAction);
 
-    const { data } = await axios.get('/api/v1/admin/products');
+    const { data } = await axios.get("/api/v1/admin/products");
 
     const action: GetAdminProductsSuccessAction = {
       type: ActionTypes.GET_ADMIN_PRODUCTS_SUCCESS,

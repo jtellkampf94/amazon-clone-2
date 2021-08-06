@@ -36,6 +36,7 @@ interface OrderState {
   newOrder: Order | null;
   allOrders: Order[] | null;
   totalAmount: number;
+  isUpdated: boolean;
 }
 
 const initialState: OrderState = {
@@ -45,7 +46,8 @@ const initialState: OrderState = {
   orders: null,
   newOrder: null,
   allOrders: null,
-  totalAmount: 0
+  totalAmount: 0,
+  isUpdated: false
 };
 
 const orderReducer = (
@@ -57,6 +59,7 @@ const orderReducer = (
     case ActionTypes.MY_ORDERS_REQUEST:
     case ActionTypes.GET_ORDER_REQUEST:
     case ActionTypes.GET_ORDERS_REQUEST:
+    case ActionTypes.UPDATE_ORDER_REQUEST:
       return {
         ...state,
         loading: true
@@ -86,10 +89,17 @@ const orderReducer = (
         loading: false,
         orders: action.payload
       };
+    case ActionTypes.UPDATE_ORDER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isUpdated: action.payload
+      };
     case ActionTypes.MY_ORDERS_FAILURE:
     case ActionTypes.CREATE_ORDER_FAILURE:
     case ActionTypes.GET_ORDER_FAILURE:
     case ActionTypes.GET_ORDERS_FAILURE:
+    case ActionTypes.UPDATE_ORDER_FAILURE:
       return {
         ...state,
         loading: false,
@@ -100,7 +110,12 @@ const orderReducer = (
         ...state,
         errors: null
       };
-
+    case ActionTypes.ORDER_RESET:
+      return {
+        ...state,
+        loading: false,
+        isUpdated: false
+      };
     default:
       return state;
   }

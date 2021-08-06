@@ -85,5 +85,10 @@ export enum ActionTypes {
 
   GET_ORDERS_REQUEST = "get_orders_request",
   GET_ORDERS_SUCCESS = "get_orders_success",
-  GET_ORDERS_FAILURE = "get_orders_failure"
+  GET_ORDERS_FAILURE = "get_orders_failure",
+
+  UPDATE_ORDER_REQUEST = "update_order_request",
+  UPDATE_ORDER_SUCCESS = "update_order_success",
+  UPDATE_ORDER_FAILURE = "update_order_failure",
+  ORDER_RESET = "order_reset"
 }

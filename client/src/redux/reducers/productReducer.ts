@@ -83,7 +83,8 @@ const productReducer = (
         ...state,
         loading: false,
         success: false,
-        isDeleted: false
+        isDeleted: false,
+        isUpdated: false
       };
     case ActionTypes.CLEAR_PRODUCT_ERRORS:
       return {

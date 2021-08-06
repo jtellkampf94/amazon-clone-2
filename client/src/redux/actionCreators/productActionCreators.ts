@@ -14,6 +14,9 @@ import {
   DeleteProductRequestAction,
   DeleteProductSuccessAction,
   DeleteProductFailureAction,
+  UpdateProductRequestAction,
+  UpdateProductSuccessAction,
+  UpdateProductFailureAction,
   ProductResetAction,
   ReviewResetAction
 } from "../actions";
@@ -138,6 +141,35 @@ export const deleteProduct = (id: string) => async (
   } catch (error) {
     const action: DeleteProductFailureAction = {
       type: ActionTypes.DELETE_PRODUCT_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+export const updateProduct = (id: string, productData: ProductData) => async (
+  dispatch: Dispatch
+): Promise<UpdateProductSuccessAction | UpdateProductFailureAction> => {
+  try {
+    const updateProductRequestAction: UpdateProductRequestAction = {
+      type: ActionTypes.UPDATE_PRODUCT_REQUEST
+    };
+    dispatch(updateProductRequestAction);
+
+    const { data } = await axios.put(
+      `/api/v1/admin/product/${id}`,
+      productData,
+      { headers: { "Content-Type": "application/json" } }
+    );
+    const action: UpdateProductSuccessAction = {
+      type: ActionTypes.UPDATE_PRODUCT_SUCCESS,
+      payload: data.success
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: UpdateProductFailureAction = {
+      type: ActionTypes.UPDATE_PRODUCT_FAILURE,
       payload: error.response.data.message
     };
     return dispatch(action);

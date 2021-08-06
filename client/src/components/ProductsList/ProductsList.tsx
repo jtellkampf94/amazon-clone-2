@@ -24,10 +24,17 @@ interface Rows {
 }
 
 const ProductsList: React.FC<RouteComponentProps> = ({ history }) => {
-  const { loading, errors, products } = useTypedSelector(
-    state => state.products
-  );
-  const { getAdminProducts, clearErrors } = useActions();
+  const {
+    products: { loading, errors, products },
+    product: { errors: deleteErrors, isDeleted, loading: deleteLoading }
+  } = useTypedSelector(state => state);
+  const {
+    getAdminProducts,
+    clearErrors,
+    deleteProduct,
+    clearProductErrors,
+    productReset
+  } = useActions();
 
   const alert = useAlert();
 
@@ -38,7 +45,22 @@ const ProductsList: React.FC<RouteComponentProps> = ({ history }) => {
       alert.error(errors);
       clearErrors();
     }
-  }, [errors]);
+
+    if (deleteErrors) {
+      alert.error(deleteErrors);
+      clearProductErrors();
+    }
+
+    if (isDeleted) {
+      alert.success("Product successfully deleted");
+      history.push("/admin/products");
+      productReset();
+    }
+  }, [errors, isDeleted, deleteErrors]);
+
+  const handleDeleteProduct = (id: string) => {
+    deleteProduct(id);
+  };
 
   const setProducts = () => {
     const data: { columns: Columns[]; rows: Rows[] } = {
@@ -86,7 +108,10 @@ const ProductsList: React.FC<RouteComponentProps> = ({ history }) => {
             >
               <i className="fa fa-pencil"></i>
             </Link>
-            <button className="btn btn-danger py-1 px-2 ml-2">
+            <button
+              className="btn btn-danger py-1 px-2 ml-2"
+              onClick={() => handleDeleteProduct(product._id)}
+            >
               <i className="fa fa-trash"></i>
             </button>
           </Fragment>

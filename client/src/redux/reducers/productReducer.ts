@@ -8,6 +8,7 @@ interface ProductState {
   loading: boolean;
   errors: string | null;
   success: boolean;
+  isDeleted: boolean;
 }
 
 const initialState: ProductState = {
@@ -15,7 +16,8 @@ const initialState: ProductState = {
   product: null,
   loading: false,
   errors: null,
-  success: false
+  success: false,
+  isDeleted: false
 };
 
 const productReducer = (
@@ -26,6 +28,7 @@ const productReducer = (
     case ActionTypes.GET_PRODUCT_REQUEST:
     case ActionTypes.CREATE_REVIEW_REQUEST:
     case ActionTypes.CREATE_PRODUCT_REQUEST:
+    case ActionTypes.DELETE_PRODUCT_REQUEST:
       return {
         ...state,
         loading: true
@@ -49,9 +52,16 @@ const productReducer = (
         loading: false,
         success: action.payload
       };
+    case ActionTypes.DELETE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload
+      };
     case ActionTypes.CREATE_REVIEW_FAILURE:
     case ActionTypes.GET_PRODUCT_FAILURE:
     case ActionTypes.CREATE_PRODUCT_FAILURE:
+    case ActionTypes.DELETE_PRODUCT_FAILURE:
       return {
         ...state,
         loading: false,
@@ -62,7 +72,8 @@ const productReducer = (
       return {
         ...state,
         loading: false,
-        success: false
+        success: false,
+        isDeleted: false
       };
     case ActionTypes.CLEAR_PRODUCT_ERRORS:
       return {

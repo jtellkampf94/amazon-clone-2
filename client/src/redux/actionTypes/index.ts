@@ -13,6 +13,10 @@ export enum ActionTypes {
   CREATE_PRODUCT_FAILURE = "create_product_failure",
   PRODUCT_RESET = "product_reset",
 
+  DELETE_PRODUCT_REQUEST = "delete_product_request",
+  DELETE_PRODUCT_SUCCESS = "delete_product_success",
+  DELETE_PRODUCT_FAILURE = "delete_product_failure",
+
   GET_PRODUCT_REQUEST = "get_product_request",
   GET_PRODUCT_SUCCESS = "get_product_success",
   GET_PRODUCT_FAILURE = "get_product_failure",

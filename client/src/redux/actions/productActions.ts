@@ -47,6 +47,20 @@ export interface CreateProductFailureAction {
   payload: string;
 }
 
+export interface DeleteProductRequestAction {
+  type: ActionTypes.DELETE_PRODUCT_REQUEST;
+}
+
+export interface DeleteProductSuccessAction {
+  type: ActionTypes.DELETE_PRODUCT_SUCCESS;
+  payload: boolean;
+}
+
+export interface DeleteProductFailureAction {
+  type: ActionTypes.DELETE_PRODUCT_FAILURE;
+  payload: string;
+}
+
 export interface ProductResetAction {
   type: ActionTypes.PRODUCT_RESET;
 }
@@ -66,5 +80,8 @@ export type ProductAction =
   | CreateProductFailureAction
   | CreateProductRequestAction
   | CreateProductSuccessAction
+  | DeleteProductFailureAction
+  | DeleteProductRequestAction
+  | DeleteProductSuccessAction
   | ProductResetAction
   | ClearProductErrorsAction;

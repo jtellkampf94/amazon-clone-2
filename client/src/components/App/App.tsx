@@ -27,6 +27,7 @@ import ProductsList from "../ProductsList/ProductsList";
 import NewProduct from "../NewProduct/NewProduct";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import UpdateProduct from "../UpdateProduct/UpdateProduct";
+import OrdersList from "../OrdersList/OrdersList";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
@@ -117,7 +118,12 @@ const App: React.FC = () => {
           //@ts-ignore
           component={UpdateProduct}
         />
-
+        <ProtectedRoute
+          exact
+          path="/admin/orders"
+          isAdmin={true}
+          component={OrdersList}
+        />
         {!loading && user && user.role !== "admin" && <Footer />}
       </div>
     </Router>

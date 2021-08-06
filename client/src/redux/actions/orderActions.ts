@@ -43,6 +43,20 @@ export interface GetOrderFailureAction {
   payload: string;
 }
 
+export interface GetOrdersRequestAction {
+  type: ActionTypes.GET_ORDERS_REQUEST;
+}
+
+export interface GetOrdersSuccessAction {
+  type: ActionTypes.GET_ORDERS_SUCCESS;
+  payload: { orders: Order[]; success: boolean; totalAmount: number };
+}
+
+export interface GetOrdersFailureAction {
+  type: ActionTypes.GET_ORDERS_FAILURE;
+  payload: string;
+}
+
 export interface ClearOrderErrorsAction {
   type: ActionTypes.CLEAR_ORDER_ERRORS;
 }
@@ -57,4 +71,7 @@ export type OrderAction =
   | GetOrderRequestAction
   | GetOrderSuccessAction
   | GetOrderFailureAction
+  | GetOrdersRequestAction
+  | GetOrdersSuccessAction
+  | GetOrdersFailureAction
   | ClearOrderErrorsAction;

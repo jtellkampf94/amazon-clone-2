@@ -34,6 +34,8 @@ interface OrderState {
   errors: null | string;
   orders: Order[] | null;
   newOrder: Order | null;
+  allOrders: Order[] | null;
+  totalAmount: number;
 }
 
 const initialState: OrderState = {
@@ -41,7 +43,9 @@ const initialState: OrderState = {
   loading: false,
   errors: null,
   orders: null,
-  newOrder: null
+  newOrder: null,
+  allOrders: null,
+  totalAmount: 0
 };
 
 const orderReducer = (
@@ -52,6 +56,7 @@ const orderReducer = (
     case ActionTypes.CREATE_ORDER_REQUEST:
     case ActionTypes.MY_ORDERS_REQUEST:
     case ActionTypes.GET_ORDER_REQUEST:
+    case ActionTypes.GET_ORDERS_REQUEST:
       return {
         ...state,
         loading: true
@@ -68,6 +73,13 @@ const orderReducer = (
         loading: false,
         order: action.payload
       };
+    case ActionTypes.GET_ORDERS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        allOrders: action.payload.orders,
+        totalAmount: action.payload.totalAmount
+      };
     case ActionTypes.MY_ORDERS_SUCCESS:
       return {
         ...state,
@@ -75,8 +87,9 @@ const orderReducer = (
         orders: action.payload
       };
     case ActionTypes.MY_ORDERS_FAILURE:
-    case ActionTypes.MY_ORDERS_FAILURE:
     case ActionTypes.CREATE_ORDER_FAILURE:
+    case ActionTypes.GET_ORDER_FAILURE:
+    case ActionTypes.GET_ORDERS_FAILURE:
       return {
         ...state,
         loading: false,

@@ -11,6 +11,9 @@ import {
   CreateProductRequestAction,
   CreateProductSuccessAction,
   CreateProductFailureAction,
+  DeleteProductRequestAction,
+  DeleteProductSuccessAction,
+  DeleteProductFailureAction,
   ProductResetAction,
   ReviewResetAction
 } from "../actions";
@@ -110,6 +113,31 @@ export const createProduct = (productData: ProductData) => async (
   } catch (error) {
     const action: CreateProductFailureAction = {
       type: ActionTypes.CREATE_PRODUCT_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+export const deleteProduct = (id: string) => async (
+  dispatch: Dispatch
+): Promise<DeleteProductSuccessAction | DeleteProductFailureAction> => {
+  try {
+    const deleteProductRequestAction: DeleteProductRequestAction = {
+      type: ActionTypes.DELETE_PRODUCT_REQUEST
+    };
+    dispatch(deleteProductRequestAction);
+
+    const { data } = await axios.delete(`/api/v1/admin/product/${id}`);
+    const action: DeleteProductSuccessAction = {
+      type: ActionTypes.DELETE_PRODUCT_SUCCESS,
+      payload: data.success
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: DeleteProductFailureAction = {
+      type: ActionTypes.DELETE_PRODUCT_FAILURE,
       payload: error.response.data.message
     };
     return dispatch(action);

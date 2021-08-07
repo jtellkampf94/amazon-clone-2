@@ -16,7 +16,8 @@ import {
   GetOrdersFailureAction,
   UpdateOrderRequestAction,
   UpdateOrderSuccessAction,
-  UpdateOrderFailureAction
+  UpdateOrderFailureAction,
+  OrderResetAction
 } from "../actions";
 
 import { ActionTypes } from "../actionTypes";
@@ -124,7 +125,10 @@ export const getAllOrders = () => async (
   }
 };
 
-export const updateOrder = (id: string, orderData: Order) => async (
+export const updateOrder = (
+  id: string,
+  orderData: { status: string }
+) => async (
   dispatch: Dispatch
 ): Promise<UpdateOrderSuccessAction | UpdateOrderFailureAction> => {
   try {
@@ -156,6 +160,13 @@ export const clearOrderErrors = () => (
 ): ClearOrderErrorsAction => {
   const action: ClearOrderErrorsAction = {
     type: ActionTypes.CLEAR_ORDER_ERRORS
+  };
+  return dispatch(action);
+};
+
+export const orderReset = () => (dispatch: Dispatch): OrderResetAction => {
+  const action: OrderResetAction = {
+    type: ActionTypes.ORDER_RESET
   };
   return dispatch(action);
 };

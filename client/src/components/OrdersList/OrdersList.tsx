@@ -24,8 +24,15 @@ interface Rows {
 }
 
 const OrdersList: React.FC<RouteComponentProps> = ({ history }) => {
-  const { getAllOrders, clearOrderErrors } = useActions();
-  const { errors, allOrders, loading } = useTypedSelector(state => state.order);
+  const {
+    getAllOrders,
+    clearOrderErrors,
+    deleteOrder,
+    orderReset
+  } = useActions();
+  const { errors, allOrders, loading, isDeleted } = useTypedSelector(
+    state => state.order
+  );
 
   const alert = useAlert();
 
@@ -36,7 +43,17 @@ const OrdersList: React.FC<RouteComponentProps> = ({ history }) => {
       alert.error(errors);
       clearOrderErrors();
     }
-  }, [errors]);
+
+    if (isDeleted) {
+      alert.success("Order successfully deleted");
+      history.push("/admin/orders");
+      orderReset();
+    }
+  }, [errors, isDeleted]);
+
+  const deleteOrderHandler = (id: string) => {
+    deleteOrder(id);
+  };
 
   const setOrders = () => {
     const data: { columns: Columns[]; rows: Rows[] } = {
@@ -90,7 +107,10 @@ const OrdersList: React.FC<RouteComponentProps> = ({ history }) => {
             >
               <i className="fa fa-eye"></i>
             </Link>
-            <button className="btn btn-danger py-1 px-2 ml-2">
+            <button
+              className="btn btn-danger py-1 px-2 ml-2"
+              onClick={() => deleteOrderHandler(order._id || "")}
+            >
               <i className="fa fa-trash"></i>
             </button>
           </Fragment>

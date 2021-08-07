@@ -13,7 +13,10 @@ import {
   GetOrderFailureAction,
   GetOrdersRequestAction,
   GetOrdersSuccessAction,
-  GetOrdersFailureAction
+  GetOrdersFailureAction,
+  UpdateOrderRequestAction,
+  UpdateOrderSuccessAction,
+  UpdateOrderFailureAction
 } from "../actions";
 
 import { ActionTypes } from "../actionTypes";
@@ -115,6 +118,33 @@ export const getAllOrders = () => async (
   } catch (error) {
     const action: GetOrdersFailureAction = {
       type: ActionTypes.GET_ORDERS_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+export const updateOrder = (id: string, orderData: Order) => async (
+  dispatch: Dispatch
+): Promise<UpdateOrderSuccessAction | UpdateOrderFailureAction> => {
+  try {
+    const updateOrderRequestAction: UpdateOrderRequestAction = {
+      type: ActionTypes.UPDATE_ORDER_REQUEST
+    };
+    dispatch(updateOrderRequestAction);
+
+    const { data } = await axios.put(`/api/v1/admin/order/${id}`, orderData, {
+      headers: { "Content-Type": "application/json" }
+    });
+    const action: UpdateOrderSuccessAction = {
+      type: ActionTypes.UPDATE_ORDER_SUCCESS,
+      payload: data.success
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: UpdateOrderFailureAction = {
+      type: ActionTypes.UPDATE_ORDER_FAILURE,
       payload: error.response.data.message
     };
     return dispatch(action);

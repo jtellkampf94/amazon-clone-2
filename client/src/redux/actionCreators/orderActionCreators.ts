@@ -17,6 +17,9 @@ import {
   UpdateOrderRequestAction,
   UpdateOrderSuccessAction,
   UpdateOrderFailureAction,
+  DeleteOrderRequestAction,
+  DeleteOrderSuccessAction,
+  DeleteOrderFailureAction,
   OrderResetAction
 } from "../actions";
 
@@ -149,6 +152,31 @@ export const updateOrder = (
   } catch (error) {
     const action: UpdateOrderFailureAction = {
       type: ActionTypes.UPDATE_ORDER_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+export const deleteOrder = (id: string) => async (
+  dispatch: Dispatch
+): Promise<DeleteOrderSuccessAction | DeleteOrderFailureAction> => {
+  try {
+    const deleteOrderRequestAction: DeleteOrderRequestAction = {
+      type: ActionTypes.DELETE_ORDER_REQUEST
+    };
+    dispatch(deleteOrderRequestAction);
+
+    const { data } = await axios.delete(`/api/v1/admin/order/${id}`);
+    const action: DeleteOrderSuccessAction = {
+      type: ActionTypes.DELETE_ORDER_SUCCESS,
+      payload: data.success
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: DeleteOrderFailureAction = {
+      type: ActionTypes.DELETE_ORDER_FAILURE,
       payload: error.response.data.message
     };
     return dispatch(action);

@@ -71,6 +71,20 @@ export interface UpdateOrderFailureAction {
   payload: string;
 }
 
+export interface DeleteOrderRequestAction {
+  type: ActionTypes.DELETE_ORDER_REQUEST;
+}
+
+export interface DeleteOrderSuccessAction {
+  type: ActionTypes.DELETE_ORDER_SUCCESS;
+  payload: boolean;
+}
+
+export interface DeleteOrderFailureAction {
+  type: ActionTypes.DELETE_ORDER_FAILURE;
+  payload: string;
+}
+
 export interface OrderResetAction {
   type: ActionTypes.ORDER_RESET;
 }
@@ -95,5 +109,8 @@ export type OrderAction =
   | UpdateOrderRequestAction
   | UpdateOrderSuccessAction
   | UpdateOrderFailureAction
+  | DeleteOrderRequestAction
+  | DeleteOrderSuccessAction
+  | DeleteOrderFailureAction
   | OrderResetAction
   | ClearOrderErrorsAction;

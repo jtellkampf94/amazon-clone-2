@@ -90,5 +90,9 @@ export enum ActionTypes {
   UPDATE_ORDER_REQUEST = "update_order_request",
   UPDATE_ORDER_SUCCESS = "update_order_success",
   UPDATE_ORDER_FAILURE = "update_order_failure",
-  ORDER_RESET = "order_reset"
+  ORDER_RESET = "order_reset",
+
+  DELETE_ORDER_REQUEST = "delete_order_request",
+  DELETE_ORDER_SUCCESS = "delete_order_success",
+  DELETE_ORDER_FAILURE = "delete_order_failure"
 }

@@ -15,6 +15,9 @@ import {
   NewPasswordRequestAction,
   NewPasswordSuccessAction,
   NewPasswordFailureAction,
+  GetAllUsersRequestAction,
+  GetAllUsersSuccessAction,
+  GetAllUsersFailureAction,
   ClearUserErrorsAction
 } from "../actions";
 
@@ -148,6 +151,31 @@ export const resetPassword = (token: string, passwords: NewPasswords) => async (
   } catch (error) {
     const action: NewPasswordFailureAction = {
       type: ActionTypes.NEW_PASSWORD_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+export const getAllUsers = () => async (
+  dispatch: Dispatch
+): Promise<GetAllUsersSuccessAction | GetAllUsersFailureAction> => {
+  try {
+    const getAllUsersRequestAction: GetAllUsersRequestAction = {
+      type: ActionTypes.GET_ALL_USERS_REQUEST
+    };
+    dispatch(getAllUsersRequestAction);
+
+    const { data } = await axios.get(`/api/v1/admin/users`);
+    const action: GetAllUsersSuccessAction = {
+      type: ActionTypes.GET_ALL_USERS_SUCCESS,
+      payload: data.users
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: GetAllUsersFailureAction = {
+      type: ActionTypes.GET_ALL_USERS_FAILURE,
       payload: error.response.data.message
     };
     return dispatch(action);

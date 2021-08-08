@@ -1,5 +1,6 @@
 import { UserAction } from "./../actions";
 import { ActionTypes } from "../actionTypes";
+import { User } from "./authReducer";
 
 interface UserState {
   isUpdated: boolean;
@@ -7,6 +8,7 @@ interface UserState {
   errors: string | null;
   message: string | null;
   success: boolean;
+  users: User[] | null;
 }
 
 const initialState: UserState = {
@@ -14,7 +16,8 @@ const initialState: UserState = {
   loading: false,
   errors: null,
   message: null,
-  success: false
+  success: false,
+  users: null
 };
 
 const userReducer = (
@@ -26,6 +29,7 @@ const userReducer = (
     case ActionTypes.UPDATE_PROFILE_REQUEST:
     case ActionTypes.FORGOT_PASSWORD_REQUEST:
     case ActionTypes.NEW_PASSWORD_REQUEST:
+    case ActionTypes.GET_ALL_USERS_REQUEST:
       return {
         ...state,
         loading: true,
@@ -52,6 +56,12 @@ const userReducer = (
         loading: false,
         success: action.payload
       };
+    case ActionTypes.GET_ALL_USERS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        users: action.payload
+      };
     case ActionTypes.UPDATE_PASSWORD_RESET:
     case ActionTypes.UPDATE_PROFILE_RESET:
       return {
@@ -62,6 +72,7 @@ const userReducer = (
     case ActionTypes.UPDATE_PROFILE_FAILURE:
     case ActionTypes.FORGOT_PASSWORD_FAILURE:
     case ActionTypes.NEW_PASSWORD_FAILURE:
+    case ActionTypes.GET_ALL_USERS_FAILURE:
       return {
         ...state,
         loading: false,

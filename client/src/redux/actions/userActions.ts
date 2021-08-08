@@ -1,4 +1,5 @@
 import { ActionTypes } from "../actionTypes";
+import { User } from "../reducers/authReducer";
 
 export interface UpdateProfileRequestAction {
   type: ActionTypes.UPDATE_PROFILE_REQUEST;
@@ -64,6 +65,20 @@ export interface NewPasswordFailureAction {
   payload: string;
 }
 
+export interface GetAllUsersRequestAction {
+  type: ActionTypes.GET_ALL_USERS_REQUEST;
+}
+
+export interface GetAllUsersSuccessAction {
+  type: ActionTypes.GET_ALL_USERS_SUCCESS;
+  payload: User[];
+}
+
+export interface GetAllUsersFailureAction {
+  type: ActionTypes.GET_ALL_USERS_FAILURE;
+  payload: string;
+}
+
 export interface ClearUserErrorsAction {
   type: ActionTypes.CLEAR_USER_ERRORS;
 }
@@ -83,4 +98,7 @@ export type UserAction =
   | NewPasswordRequestAction
   | NewPasswordSuccessAction
   | NewPasswordFailureAction
+  | GetAllUsersRequestAction
+  | GetAllUsersSuccessAction
+  | GetAllUsersFailureAction
   | ClearUserErrorsAction;

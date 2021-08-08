@@ -66,6 +66,10 @@ export enum ActionTypes {
   NEW_PASSWORD_SUCCESS = "new_password_success",
   NEW_PASSWORD_FAILURE = "new_password_failure",
 
+  GET_ALL_USERS_REQUEST = "get_all_users_request",
+  GET_ALL_USERS_SUCCESS = "get_all_users_success",
+  GET_ALL_USERS_FAILURE = "get_all_users_failure",
+
   ADD_TO_CART = "add_to_cart",
   REMOVE_FROM_CART = "remove_from_cart",
   SAVE_SHIPPING_INFO = "save_shipping_info",

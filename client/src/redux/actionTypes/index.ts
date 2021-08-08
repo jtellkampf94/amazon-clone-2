@@ -70,6 +70,10 @@ export enum ActionTypes {
   GET_ALL_USERS_SUCCESS = "get_all_users_success",
   GET_ALL_USERS_FAILURE = "get_all_users_failure",
 
+  UPDATE_USER_REQUEST = "update_user_request",
+  UPDATE_USER_SUCCESS = "update_user_success",
+  UPDATE_USER_FAILURE = "update_user_failure",
+
   ADD_TO_CART = "add_to_cart",
   REMOVE_FROM_CART = "remove_from_cart",
   SAVE_SHIPPING_INFO = "save_shipping_info",

@@ -79,6 +79,20 @@ export interface GetAllUsersFailureAction {
   payload: string;
 }
 
+export interface UpdateUserRequestAction {
+  type: ActionTypes.UPDATE_USER_REQUEST;
+}
+
+export interface UpdateUserSuccessAction {
+  type: ActionTypes.UPDATE_USER_SUCCESS;
+  payload: boolean;
+}
+
+export interface UpdateUserFailureAction {
+  type: ActionTypes.UPDATE_USER_FAILURE;
+  payload: string;
+}
+
 export interface ClearUserErrorsAction {
   type: ActionTypes.CLEAR_USER_ERRORS;
 }
@@ -101,4 +115,7 @@ export type UserAction =
   | GetAllUsersRequestAction
   | GetAllUsersSuccessAction
   | GetAllUsersFailureAction
+  | UpdateUserRequestAction
+  | UpdateUserSuccessAction
+  | UpdateUserFailureAction
   | ClearUserErrorsAction;

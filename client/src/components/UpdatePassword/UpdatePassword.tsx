@@ -10,7 +10,7 @@ const UpdatePassword: React.FC<RouteComponentProps> = ({ history }) => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
-  const { updatePassword, clearUserErrors, updatePasswordReset } = useActions();
+  const { updatePassword, clearUserErrors, userReset } = useActions();
   const { errors, isUpdated, loading } = useTypedSelector(state => state.user);
   const alert = useAlert();
 
@@ -25,7 +25,7 @@ const UpdatePassword: React.FC<RouteComponentProps> = ({ history }) => {
 
       history.push("/profile");
 
-      updatePasswordReset();
+      userReset();
     }
   }, [alert, errors, history, isUpdated]);
 

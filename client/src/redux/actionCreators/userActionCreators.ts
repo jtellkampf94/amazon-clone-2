@@ -3,11 +3,10 @@ import { Dispatch } from "redux";
 import {
   UpdateProfileRequestAction,
   UpdateProfileSuccessAction,
-  UpdateProfileResetAction,
   UpdateProfileFailureAction,
   UpdatePasswordRequestAction,
   UpdatePasswordSuccessAction,
-  UpdatePasswordResetAction,
+  UserResetAction,
   UpdatePasswordFailureAction,
   ForgotPasswordRequestAction,
   ForgotPasswordSuccessAction,
@@ -18,10 +17,14 @@ import {
   GetAllUsersRequestAction,
   GetAllUsersSuccessAction,
   GetAllUsersFailureAction,
+  UpdateUserRequestAction,
+  UpdateUserSuccessAction,
+  UpdateUserFailureAction,
   ClearUserErrorsAction
 } from "../actions";
 
 import { ActionTypes } from "../actionTypes";
+import { User } from "../reducers/authReducer";
 
 export const updateProfile = (userData: FormData) => async (
   dispatch: Dispatch
@@ -182,6 +185,33 @@ export const getAllUsers = () => async (
   }
 };
 
+export const updateUser = (id: string, userData: User) => async (
+  dispatch: Dispatch
+): Promise<UpdateUserSuccessAction | UpdateUserFailureAction> => {
+  try {
+    const updateUserRequestAction: UpdateUserRequestAction = {
+      type: ActionTypes.UPDATE_USER_REQUEST
+    };
+    dispatch(updateUserRequestAction);
+
+    const { data } = await axios.put(`/api/v1/admin/user/${id}`, userData, {
+      headers: { "Content-Type": "application/json" }
+    });
+    const action: UpdateUserSuccessAction = {
+      type: ActionTypes.UPDATE_USER_SUCCESS,
+      payload: data.success
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: UpdateUserFailureAction = {
+      type: ActionTypes.UPDATE_USER_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
 export const clearUserErrors = () => (
   dispatch: Dispatch
 ): ClearUserErrorsAction => {
@@ -191,20 +221,9 @@ export const clearUserErrors = () => (
   return dispatch(action);
 };
 
-export const updateProfileReset = () => (
-  dispatch: Dispatch
-): UpdateProfileResetAction => {
-  const action: UpdateProfileResetAction = {
-    type: ActionTypes.UPDATE_PROFILE_RESET
-  };
-  return dispatch(action);
-};
-
-export const updatePasswordReset = () => (
-  dispatch: Dispatch
-): UpdatePasswordResetAction => {
-  const action: UpdatePasswordResetAction = {
-    type: ActionTypes.UPDATE_PASSWORD_RESET
+export const userReset = () => (dispatch: Dispatch): UserResetAction => {
+  const action: UserResetAction = {
+    type: ActionTypes.USER_RESET
   };
   return dispatch(action);
 };

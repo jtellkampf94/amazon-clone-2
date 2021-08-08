@@ -30,6 +30,7 @@ const userReducer = (
     case ActionTypes.FORGOT_PASSWORD_REQUEST:
     case ActionTypes.NEW_PASSWORD_REQUEST:
     case ActionTypes.GET_ALL_USERS_REQUEST:
+    case ActionTypes.UPDATE_USER_REQUEST:
       return {
         ...state,
         loading: true,
@@ -39,6 +40,7 @@ const userReducer = (
       };
     case ActionTypes.UPDATE_PASSWORD_SUCCESS:
     case ActionTypes.UPDATE_PROFILE_SUCCESS:
+    case ActionTypes.UPDATE_USER_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -62,8 +64,7 @@ const userReducer = (
         loading: false,
         users: action.payload
       };
-    case ActionTypes.UPDATE_PASSWORD_RESET:
-    case ActionTypes.UPDATE_PROFILE_RESET:
+    case ActionTypes.USER_RESET:
       return {
         ...state,
         isUpdated: false
@@ -73,6 +74,7 @@ const userReducer = (
     case ActionTypes.FORGOT_PASSWORD_FAILURE:
     case ActionTypes.NEW_PASSWORD_FAILURE:
     case ActionTypes.GET_ALL_USERS_FAILURE:
+    case ActionTypes.UPDATE_USER_FAILURE:
       return {
         ...state,
         loading: false,

@@ -14,12 +14,7 @@ const UpdateProfile: React.FC<RouteComponentProps> = ({ history }) => {
     "/images/default_avatar.jpg"
   );
 
-  const {
-    clearUserErrors,
-    updateProfile,
-    updateProfileReset,
-    loadUser
-  } = useActions();
+  const { clearUserErrors, updateProfile, userReset, loadUser } = useActions();
   const {
     auth: { user },
     user: { errors, isUpdated, loading }
@@ -44,7 +39,7 @@ const UpdateProfile: React.FC<RouteComponentProps> = ({ history }) => {
 
       history.push("/profile");
 
-      updateProfileReset();
+      userReset();
     }
   }, [alert, errors, history, isUpdated]);
 

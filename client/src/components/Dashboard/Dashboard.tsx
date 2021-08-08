@@ -8,15 +8,17 @@ import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 const Dashboard: React.FC = () => {
-  const { getAdminProducts, getAllOrders } = useActions();
+  const { getAdminProducts, getAllOrders, getAllUsers } = useActions();
   const {
     products: { products },
-    order: { allOrders, totalAmount, loading }
+    order: { allOrders, totalAmount, loading },
+    user: { users }
   } = useTypedSelector(state => state);
 
   useEffect(() => {
     getAdminProducts();
     getAllOrders();
+    getAllUsers();
   }, []);
 
   let outOfStock = 0;
@@ -47,7 +49,7 @@ const Dashboard: React.FC = () => {
                     <div className="card-body">
                       <div className="text-center card-font-size">
                         Total Amount
-                        <br /> <b>${totalAmount.toFixed(2)}</b>
+                        <br /> <b>${totalAmount && totalAmount.toFixed(2)}</b>
                       </div>
                     </div>
                   </div>
@@ -100,7 +102,7 @@ const Dashboard: React.FC = () => {
                     <div className="card-body">
                       <div className="text-center card-font-size">
                         Users
-                        <br /> <b>45</b>
+                        <br /> <b>{users && users.length}</b>
                       </div>
                     </div>
                     <Link

@@ -29,6 +29,7 @@ import UpdateProduct from "../UpdateProduct/UpdateProduct";
 import OrdersList from "../OrdersList/OrdersList";
 import ProcessOrder from "../ProcessOrder/ProcessOrder";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import UserList from "../UserList/UserList";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
@@ -131,6 +132,12 @@ const App: React.FC = () => {
           isAdmin={true}
           //@ts-ignore
           component={ProcessOrder}
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/Users"
+          isAdmin={true}
+          component={UserList}
         />
         {!loading && user && user.role !== "admin" && <Footer />}
       </div>

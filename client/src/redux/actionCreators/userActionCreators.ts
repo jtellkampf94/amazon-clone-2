@@ -17,6 +17,9 @@ import {
   GetAllUsersRequestAction,
   GetAllUsersSuccessAction,
   GetAllUsersFailureAction,
+  GetUserRequestAction,
+  GetUserSuccessAction,
+  GetUserFailureAction,
   UpdateUserRequestAction,
   UpdateUserSuccessAction,
   UpdateUserFailureAction,
@@ -179,6 +182,31 @@ export const getAllUsers = () => async (
   } catch (error) {
     const action: GetAllUsersFailureAction = {
       type: ActionTypes.GET_ALL_USERS_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+export const getUser = (id: string) => async (
+  dispatch: Dispatch
+): Promise<GetUserSuccessAction | GetUserFailureAction> => {
+  try {
+    const getUserRequestAction: GetUserRequestAction = {
+      type: ActionTypes.GET_USER_REQUEST
+    };
+    dispatch(getUserRequestAction);
+
+    const { data } = await axios.get(`/api/v1/admin/user/${id}`);
+    const action: GetUserSuccessAction = {
+      type: ActionTypes.GET_USER_SUCCESS,
+      payload: data.user
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: GetUserFailureAction = {
+      type: ActionTypes.GET_USER_FAILURE,
       payload: error.response.data.message
     };
     return dispatch(action);

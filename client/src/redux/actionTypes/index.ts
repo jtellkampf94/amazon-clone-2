@@ -69,6 +69,10 @@ export enum ActionTypes {
   GET_ALL_USERS_SUCCESS = "get_all_users_success",
   GET_ALL_USERS_FAILURE = "get_all_users_failure",
 
+  GET_USER_REQUEST = "get_user_request",
+  GET_USER_SUCCESS = "get_user_success",
+  GET_USER_FAILURE = "get_user_failure",
+
   UPDATE_USER_REQUEST = "update_user_request",
   UPDATE_USER_SUCCESS = "update_user_success",
   UPDATE_USER_FAILURE = "update_user_failure",

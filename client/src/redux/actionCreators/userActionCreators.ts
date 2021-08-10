@@ -213,7 +213,10 @@ export const getUser = (id: string) => async (
   }
 };
 
-export const updateUser = (id: string, userData: User) => async (
+export const updateUser = (
+  id: string,
+  userData: { name: string; email: string; role: string }
+) => async (
   dispatch: Dispatch
 ): Promise<UpdateUserSuccessAction | UpdateUserFailureAction> => {
   try {

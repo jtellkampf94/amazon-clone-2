@@ -9,6 +9,7 @@ interface UserState {
   message: string | null;
   success: boolean;
   users: User[] | null;
+  user: User | null;
 }
 
 const initialState: UserState = {
@@ -17,7 +18,8 @@ const initialState: UserState = {
   errors: null,
   message: null,
   success: false,
-  users: null
+  users: null,
+  user: null
 };
 
 const userReducer = (
@@ -30,6 +32,7 @@ const userReducer = (
     case ActionTypes.FORGOT_PASSWORD_REQUEST:
     case ActionTypes.NEW_PASSWORD_REQUEST:
     case ActionTypes.GET_ALL_USERS_REQUEST:
+    case ActionTypes.GET_USER_REQUEST:
     case ActionTypes.UPDATE_USER_REQUEST:
       return {
         ...state,
@@ -64,6 +67,12 @@ const userReducer = (
         loading: false,
         users: action.payload
       };
+    case ActionTypes.GET_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        user: action.payload
+      };
     case ActionTypes.USER_RESET:
       return {
         ...state,
@@ -74,6 +83,7 @@ const userReducer = (
     case ActionTypes.FORGOT_PASSWORD_FAILURE:
     case ActionTypes.NEW_PASSWORD_FAILURE:
     case ActionTypes.GET_ALL_USERS_FAILURE:
+    case ActionTypes.GET_USER_FAILURE:
     case ActionTypes.UPDATE_USER_FAILURE:
       return {
         ...state,

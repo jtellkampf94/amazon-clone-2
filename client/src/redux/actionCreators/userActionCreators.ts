@@ -23,6 +23,9 @@ import {
   UpdateUserRequestAction,
   UpdateUserSuccessAction,
   UpdateUserFailureAction,
+  DeleteUserRequestAction,
+  DeleteUserSuccessAction,
+  DeleteUserFailureAction,
   ClearUserErrorsAction
 } from "../actions";
 
@@ -237,6 +240,31 @@ export const updateUser = (
   } catch (error) {
     const action: UpdateUserFailureAction = {
       type: ActionTypes.UPDATE_USER_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+export const deleteUser = (id: string) => async (
+  dispatch: Dispatch
+): Promise<DeleteUserSuccessAction | DeleteUserFailureAction> => {
+  try {
+    const deleteUserRequestAction: DeleteUserRequestAction = {
+      type: ActionTypes.DELETE_USER_REQUEST
+    };
+    dispatch(deleteUserRequestAction);
+
+    const { data } = await axios.delete(`/api/v1/admin/user/${id}`);
+    const action: DeleteUserSuccessAction = {
+      type: ActionTypes.DELETE_USER_SUCCESS,
+      payload: data.success
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: DeleteUserFailureAction = {
+      type: ActionTypes.DELETE_USER_FAILURE,
       payload: error.response.data.message
     };
     return dispatch(action);

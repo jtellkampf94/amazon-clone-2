@@ -104,16 +104,16 @@ export interface UpdateUserFailureAction {
 }
 
 export interface DeleteUserRequestAction {
-  type: ActionTypes.UPDATE_USER_REQUEST;
+  type: ActionTypes.DELETE_USER_REQUEST;
 }
 
 export interface DeleteUserSuccessAction {
-  type: ActionTypes.UPDATE_USER_SUCCESS;
+  type: ActionTypes.DELETE_USER_SUCCESS;
   payload: boolean;
 }
 
 export interface DeleteUserFailureAction {
-  type: ActionTypes.UPDATE_USER_FAILURE;
+  type: ActionTypes.DELETE_USER_FAILURE;
   payload: string;
 }
 
@@ -144,4 +144,7 @@ export type UserAction =
   | UpdateUserRequestAction
   | UpdateUserSuccessAction
   | UpdateUserFailureAction
+  | DeleteUserRequestAction
+  | DeleteUserSuccessAction
+  | DeleteUserFailureAction
   | ClearUserErrorsAction;

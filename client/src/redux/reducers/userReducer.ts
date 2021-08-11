@@ -4,6 +4,7 @@ import { User } from "./authReducer";
 
 interface UserState {
   isUpdated: boolean;
+  isDeleted: boolean;
   loading: boolean;
   errors: string | null;
   message: string | null;
@@ -14,6 +15,7 @@ interface UserState {
 
 const initialState: UserState = {
   isUpdated: false,
+  isDeleted: false,
   loading: false,
   errors: null,
   message: null,
@@ -34,6 +36,7 @@ const userReducer = (
     case ActionTypes.GET_ALL_USERS_REQUEST:
     case ActionTypes.GET_USER_REQUEST:
     case ActionTypes.UPDATE_USER_REQUEST:
+    case ActionTypes.DELETE_USER_REQUEST:
       return {
         ...state,
         loading: true,
@@ -48,6 +51,12 @@ const userReducer = (
         ...state,
         loading: false,
         isUpdated: action.payload
+      };
+    case ActionTypes.DELETE_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload
       };
     case ActionTypes.FORGOT_PASSWORD_SUCCESS:
       return {
@@ -76,7 +85,8 @@ const userReducer = (
     case ActionTypes.USER_RESET:
       return {
         ...state,
-        isUpdated: false
+        isUpdated: false,
+        isDeleted: false
       };
     case ActionTypes.UPDATE_PASSWORD_FAILURE:
     case ActionTypes.UPDATE_PROFILE_FAILURE:
@@ -85,6 +95,7 @@ const userReducer = (
     case ActionTypes.GET_ALL_USERS_FAILURE:
     case ActionTypes.GET_USER_FAILURE:
     case ActionTypes.UPDATE_USER_FAILURE:
+    case ActionTypes.DELETE_USER_FAILURE:
       return {
         ...state,
         loading: false,

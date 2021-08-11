@@ -23,9 +23,11 @@ interface Rows {
   actions: JSX.Element;
 }
 
-const UserList: React.FC = () => {
-  const { getAllUsers, clearUserErrors } = useActions();
-  const { users, errors, loading } = useTypedSelector(state => state.user);
+const UserList: React.FC<RouteComponentProps> = ({ history }) => {
+  const { getAllUsers, clearUserErrors, userReset, deleteUser } = useActions();
+  const { users, errors, loading, isDeleted } = useTypedSelector(
+    state => state.user
+  );
 
   const alert = useAlert();
 
@@ -36,7 +38,17 @@ const UserList: React.FC = () => {
       alert.error(errors);
       clearUserErrors();
     }
-  }, [errors]);
+
+    if (isDeleted) {
+      alert.success("User successfully deleted");
+      history.push("/admin/users");
+      userReset();
+    }
+  }, [errors, isDeleted]);
+
+  const deleteUserHandler = (id: string) => {
+    deleteUser(id);
+  };
 
   const setUsers = () => {
     const data: { columns: Columns[]; rows: Rows[] } = {
@@ -84,7 +96,10 @@ const UserList: React.FC = () => {
             >
               <i className="fa fa-pencil"></i>
             </Link>
-            <button className="btn btn-danger py-1 px-2 ml-2">
+            <button
+              onClick={() => deleteUserHandler(user._id)}
+              className="btn btn-danger py-1 px-2 ml-2"
+            >
               <i className="fa fa-trash"></i>
             </button>
           </Fragment>

@@ -103,6 +103,20 @@ export interface UpdateUserFailureAction {
   payload: string;
 }
 
+export interface DeleteUserRequestAction {
+  type: ActionTypes.UPDATE_USER_REQUEST;
+}
+
+export interface DeleteUserSuccessAction {
+  type: ActionTypes.UPDATE_USER_SUCCESS;
+  payload: boolean;
+}
+
+export interface DeleteUserFailureAction {
+  type: ActionTypes.UPDATE_USER_FAILURE;
+  payload: string;
+}
+
 export interface ClearUserErrorsAction {
   type: ActionTypes.CLEAR_USER_ERRORS;
 }

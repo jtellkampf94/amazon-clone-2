@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
+import { RouteComponentProps } from "react-router-dom";
 import { MDBDataTable } from "mdbreact";
 import { useAlert } from "react-alert";
 
@@ -23,8 +24,15 @@ interface Rows {
 }
 
 const ProductReviews: React.FC = () => {
-  const { getReviews, productReset, clearProductErrors } = useActions();
-  const { loading, errors, reviews } = useTypedSelector(state => state.product);
+  const {
+    getReviews,
+    productReset,
+    clearProductErrors,
+    deleteReview
+  } = useActions();
+  const { loading, errors, reviews, isDeleted } = useTypedSelector(
+    state => state.product
+  );
 
   const alert = useAlert();
 
@@ -39,16 +47,16 @@ const ProductReviews: React.FC = () => {
     if (productId !== "") {
       getReviews(productId);
     }
-    // if (isDeleted) {
-    //   alert.success("User successfully deleted");
-    //   history.push("/admin/users");
-    //   userReset();
-    // }
-  }, [errors, productId]);
 
-  // const deleteUserHandler = (id: string) => {
-  //   deleteUser(id);
-  // };
+    if (isDeleted) {
+      alert.success("Review successfully deleted");
+      productReset();
+    }
+  }, [errors, productId, isDeleted]);
+
+  const deleteReviewHandler = (id: string) => {
+    deleteReview(id, productId);
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -96,7 +104,7 @@ const ProductReviews: React.FC = () => {
         actions: (
           <Fragment>
             <button
-              // onClick={() => deleteReviewHandler(review._id)}
+              onClick={() => deleteReviewHandler(review._id)}
               className="btn btn-danger py-1 px-2 ml-2"
             >
               <i className="fa fa-trash"></i>

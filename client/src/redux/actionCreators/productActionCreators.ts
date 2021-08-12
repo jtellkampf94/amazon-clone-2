@@ -20,6 +20,9 @@ import {
   GetReviewsRequestAction,
   GetReviewsSuccessAction,
   GetReviewsFailureAction,
+  DeleteReviewRequestAction,
+  DeleteReviewSuccessAction,
+  DeleteReviewFailureAction,
   ProductResetAction,
   ReviewResetAction
 } from "../actions";
@@ -198,6 +201,33 @@ export const getReviews = (id: string) => async (
   } catch (error) {
     const action: GetReviewsFailureAction = {
       type: ActionTypes.GET_REVIEWS_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+export const deleteReview = (id: string, productId: string) => async (
+  dispatch: Dispatch
+): Promise<DeleteReviewSuccessAction | DeleteReviewFailureAction> => {
+  try {
+    const deleteReviewRequestAction: DeleteReviewRequestAction = {
+      type: ActionTypes.DELETE_REVIEW_REQUEST
+    };
+    dispatch(deleteReviewRequestAction);
+
+    const { data } = await axios.delete(
+      `/api/v1/review?id=${id}&productId=${productId}`
+    );
+    const action: DeleteReviewSuccessAction = {
+      type: ActionTypes.DELETE_REVIEW_SUCCESS,
+      payload: data.success
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: DeleteReviewFailureAction = {
+      type: ActionTypes.DELETE_REVIEW_FAILURE,
       payload: error.response.data.message
     };
     return dispatch(action);

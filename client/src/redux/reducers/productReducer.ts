@@ -35,6 +35,7 @@ const productReducer = (
     case ActionTypes.DELETE_PRODUCT_REQUEST:
     case ActionTypes.UPDATE_PRODUCT_REQUEST:
     case ActionTypes.GET_REVIEWS_REQUEST:
+    case ActionTypes.DELETE_REVIEW_REQUEST:
       return {
         ...state,
         loading: true
@@ -59,6 +60,7 @@ const productReducer = (
         success: action.payload
       };
     case ActionTypes.DELETE_PRODUCT_SUCCESS:
+    case ActionTypes.DELETE_REVIEW_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -82,6 +84,7 @@ const productReducer = (
     case ActionTypes.DELETE_PRODUCT_FAILURE:
     case ActionTypes.UPDATE_PRODUCT_FAILURE:
     case ActionTypes.GET_REVIEWS_FAILURE:
+    case ActionTypes.DELETE_REVIEW_FAILURE:
       return {
         ...state,
         loading: false,

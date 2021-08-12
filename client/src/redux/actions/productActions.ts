@@ -75,6 +75,20 @@ export interface UpdateProductFailureAction {
   payload: string;
 }
 
+export interface GetReviewsRequestAction {
+  type: ActionTypes.GET_REVIEWS_REQUEST;
+}
+
+export interface GetReviewsSuccessAction {
+  type: ActionTypes.GET_REVIEWS_SUCCESS;
+  payload: Product["reviews"][];
+}
+
+export interface GetReviewsFailureAction {
+  type: ActionTypes.GET_REVIEWS_FAILURE;
+  payload: string;
+}
+
 export interface ProductResetAction {
   type: ActionTypes.PRODUCT_RESET;
 }
@@ -100,5 +114,8 @@ export type ProductAction =
   | UpdateProductFailureAction
   | UpdateProductRequestAction
   | UpdateProductSuccessAction
+  | GetReviewsFailureAction
+  | GetReviewsRequestAction
+  | GetReviewsSuccessAction
   | ProductResetAction
   | ClearProductErrorsAction;

@@ -10,6 +10,7 @@ interface ProductState {
   success: boolean;
   isDeleted: boolean;
   isUpdated: boolean;
+  reviews: Product["reviews"][];
 }
 
 const initialState: ProductState = {
@@ -19,7 +20,8 @@ const initialState: ProductState = {
   errors: null,
   success: false,
   isDeleted: false,
-  isUpdated: false
+  isUpdated: false,
+  reviews: []
 };
 
 const productReducer = (
@@ -32,6 +34,7 @@ const productReducer = (
     case ActionTypes.CREATE_PRODUCT_REQUEST:
     case ActionTypes.DELETE_PRODUCT_REQUEST:
     case ActionTypes.UPDATE_PRODUCT_REQUEST:
+    case ActionTypes.GET_REVIEWS_REQUEST:
       return {
         ...state,
         loading: true
@@ -67,11 +70,18 @@ const productReducer = (
         loading: false,
         isUpdated: action.payload
       };
+    case ActionTypes.GET_REVIEWS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        reviews: action.payload
+      };
     case ActionTypes.CREATE_REVIEW_FAILURE:
     case ActionTypes.GET_PRODUCT_FAILURE:
     case ActionTypes.CREATE_PRODUCT_FAILURE:
     case ActionTypes.DELETE_PRODUCT_FAILURE:
     case ActionTypes.UPDATE_PRODUCT_FAILURE:
+    case ActionTypes.GET_REVIEWS_FAILURE:
       return {
         ...state,
         loading: false,

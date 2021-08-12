@@ -31,6 +31,10 @@ export enum ActionTypes {
   CREATE_REVIEW_FAILURE = "create_review_failure",
   REVIEW_RESET = "review_reset",
 
+  GET_REVIEWS_REQUEST = "get_reviews_request",
+  GET_REVIEWS_SUCCESS = "get_reviews_success",
+  GET_REVIEWS_FAILURE = "get_reviews_failure",
+
   LOGIN_REQUEST = "login_request",
   LOGIN_SUCCESS = "login_success",
   LOGIN_FAILURE = "login_failure",

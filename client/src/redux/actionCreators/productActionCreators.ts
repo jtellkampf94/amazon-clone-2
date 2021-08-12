@@ -17,6 +17,9 @@ import {
   UpdateProductRequestAction,
   UpdateProductSuccessAction,
   UpdateProductFailureAction,
+  GetReviewsRequestAction,
+  GetReviewsSuccessAction,
+  GetReviewsFailureAction,
   ProductResetAction,
   ReviewResetAction
 } from "../actions";
@@ -170,6 +173,31 @@ export const updateProduct = (id: string, productData: ProductData) => async (
   } catch (error) {
     const action: UpdateProductFailureAction = {
       type: ActionTypes.UPDATE_PRODUCT_FAILURE,
+      payload: error.response.data.message
+    };
+    return dispatch(action);
+  }
+};
+
+export const getReviews = (id: string) => async (
+  dispatch: Dispatch
+): Promise<GetReviewsSuccessAction | GetReviewsFailureAction> => {
+  try {
+    const getReviewsRequestAction: GetReviewsRequestAction = {
+      type: ActionTypes.GET_REVIEWS_REQUEST
+    };
+    dispatch(getReviewsRequestAction);
+
+    const { data } = await axios.get(`/api/v1/reviews?id=${id}`);
+    const action: GetReviewsSuccessAction = {
+      type: ActionTypes.GET_REVIEWS_SUCCESS,
+      payload: data.reviews
+    };
+
+    return dispatch(action);
+  } catch (error) {
+    const action: GetReviewsFailureAction = {
+      type: ActionTypes.GET_REVIEWS_FAILURE,
       payload: error.response.data.message
     };
     return dispatch(action);

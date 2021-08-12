@@ -35,6 +35,10 @@ export enum ActionTypes {
   GET_REVIEWS_SUCCESS = "get_reviews_success",
   GET_REVIEWS_FAILURE = "get_reviews_failure",
 
+  DELETE_REVIEW_REQUEST = "delete_review_request",
+  DELETE_REVIEW_SUCCESS = "delete_review_success",
+  DELETE_REVIEW_FAILURE = "delete_review_failure",
+
   LOGIN_REQUEST = "login_request",
   LOGIN_SUCCESS = "login_success",
   LOGIN_FAILURE = "login_failure",

@@ -89,6 +89,20 @@ export interface GetReviewsFailureAction {
   payload: string;
 }
 
+export interface DeleteReviewRequestAction {
+  type: ActionTypes.DELETE_REVIEW_REQUEST;
+}
+
+export interface DeleteReviewSuccessAction {
+  type: ActionTypes.DELETE_REVIEW_SUCCESS;
+  payload: boolean;
+}
+
+export interface DeleteReviewFailureAction {
+  type: ActionTypes.DELETE_REVIEW_FAILURE;
+  payload: string;
+}
+
 export interface ProductResetAction {
   type: ActionTypes.PRODUCT_RESET;
 }
@@ -117,5 +131,8 @@ export type ProductAction =
   | GetReviewsFailureAction
   | GetReviewsRequestAction
   | GetReviewsSuccessAction
+  | DeleteReviewFailureAction
+  | DeleteReviewRequestAction
+  | DeleteReviewSuccessAction
   | ProductResetAction
   | ClearProductErrorsAction;

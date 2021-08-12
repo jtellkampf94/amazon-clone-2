@@ -81,7 +81,7 @@ export interface GetReviewsRequestAction {
 
 export interface GetReviewsSuccessAction {
   type: ActionTypes.GET_REVIEWS_SUCCESS;
-  payload: Product["reviews"][];
+  payload: Product["reviews"];
 }
 
 export interface GetReviewsFailureAction {

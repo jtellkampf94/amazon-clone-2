@@ -10,7 +10,7 @@ interface ProductState {
   success: boolean;
   isDeleted: boolean;
   isUpdated: boolean;
-  reviews: Product["reviews"][];
+  reviews: Product["reviews"];
 }
 
 const initialState: ProductState = {
